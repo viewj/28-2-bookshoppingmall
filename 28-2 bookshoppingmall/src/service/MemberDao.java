@@ -78,7 +78,7 @@ public class MemberDao {
 		// member테이블 전체 레코드에서 특정 레코드를 찾는 쿼리문
 		String sqlMemberLogin = "SELECT member_pw FROM member where member_id=?";
 		
-		// 쿼리문에서 나온 행의 id와 pw값을 담을 변수와 리턴해줄 값을 담을 변수 선언
+		// 쿼리문에서 나온 행의 pw값을 담을 변수와 리턴해줄 값을 담을 변수 선언
 		String pw = null;
 		String result = null;
 		
