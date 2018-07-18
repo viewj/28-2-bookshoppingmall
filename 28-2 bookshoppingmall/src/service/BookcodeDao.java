@@ -13,12 +13,20 @@ public class BookcodeDao {
 			pstmtInsertBookcode = conn.prepareStatement(sqlInsertBookcode);
 			
 			pstmtInsertBookcode.setString(1, bookcode.getBookcodeName());
-			
-			
+	
 			System.out.println("삽입된 bookcode 레코드의 수 : " + pstmtInsertBookcode.executeUpdate());
 		} catch(SQLException e) {
-			System.out.println("DB와 관련된 예외가 발생하였습니다, connectDB");
+			System.out.println("DB와 관련된 예외가 발생하였습니다, insertBookcode main");
 			e.printStackTrace();
+		} finally {
+			if(pstmtInsertBookcode != null) {
+				try {
+					pstmtInsertBookcode.close();
+				} catch(SQLException e) {
+					System.out.println("DB와 관련된 예외가 발생하였습니다, insertBookcode close");
+					e.printStackTrace();
+				} 
+			}
 		}
 	} 
 }
