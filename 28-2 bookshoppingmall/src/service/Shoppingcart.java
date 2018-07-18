@@ -40,8 +40,7 @@ public class Shoppingcart {
 	}
 	public String getShoppingcartDate() {
 		return shoppingcartDate;
-	}
-	public void setShoppingcartDate(String shoppingcartDate) {
+	}public void setShoppingcartDate(String shoppingcartDate) {
 		this.shoppingcartDate = shoppingcartDate;
 	}
 	

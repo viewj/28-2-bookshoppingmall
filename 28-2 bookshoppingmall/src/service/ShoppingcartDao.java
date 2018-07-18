@@ -1,6 +1,8 @@
 package service;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 import service.*;
 
 public class ShoppingcartDao {
@@ -68,6 +70,107 @@ public class ShoppingcartDao {
 			}
 		}
 			
+	}
+	//ArrayList 리턴 타입. selectAllShoppingcart 메서드 선언. 매개변수로는 클래스 데이터 타입인 conn과 int 데이터 타입인 memberNo를 사용.
+	public ArrayList<Shoppingcart> selectShoppingcart(Connection conn, int memberNo) {
+		//초기값 지정.
+		PreparedStatement pstmtSelectAllShoppingcart = null;
+		ResultSet rsSelectAllShoppingcart = null;
+		
+		//ArrayList 클래스의 주소값을 할당한 객체 생성.
+		ArrayList<Shoppingcart> arrayListAllShoppingcart = new ArrayList<Shoppingcart>();
+		
+		//쿼리문 sql 변수에 대입.
+		String sqlSelectAllShoppingcart = "SELECT shoppingcart_no, book_no, member_no, shoppingcart_amount, shoppingcart_price, shoppingcart_date FROM shoppingcart where member_no=?";
+		
+		try {
+			pstmtSelectAllShoppingcart = conn.prepareStatement(sqlSelectAllShoppingcart);
+			pstmtSelectAllShoppingcart.setInt(1, memberNo);
+			
+			//resultSet 객체 참조변수인 rsSelectAllShoppingcart에 쿼리실행 결과 리턴값 대입.
+			rsSelectAllShoppingcart = pstmtSelectAllShoppingcart.executeQuery();
+			
+			//*쿼리문의 조건에 맞는 값이 끝날때까지 반복(테이블의 레코더를 가져온다)
+			while(rsSelectAllShoppingcart.next()) {
+				//Shoppingcart 클래스의 새로운 객체 생성.
+				Shoppingcart shoppingcart = new Shoppingcart();
+				
+				//테이블 내에 있는 값을 끄집어  shoppingcart 내부에 저장되어 있는 set메서드에 삽입.
+				shoppingcart.setShoppingcartNo(rsSelectAllShoppingcart.getInt("shoppingcart_no"));
+				shoppingcart.setBookNo(rsSelectAllShoppingcart.getInt("book_no"));
+				shoppingcart.setMemberNo(rsSelectAllShoppingcart.getInt("member_no"));
+				shoppingcart.setShoppingcartAmount(rsSelectAllShoppingcart.getInt("shoppingcart_amount"));
+				shoppingcart.setShoppingcartPrice(rsSelectAllShoppingcart.getInt("shoppingcart_price"));
+				shoppingcart.setShoppingcartDate(rsSelectAllShoppingcart.getString("shoppingcart_date"));
+				
+				//* 위 반복이 끝나고 비로소 완성된 객체에  인덱스(숫자) 부여.
+				arrayListAllShoppingcart.add(shoppingcart);
+			}
+		//예외처리.
+		} catch (SQLException e) {
+			System.out.println("DB와 관련된 예외가 발생하였습니다, selectAllShoppingcart close");
+			e.printStackTrace();
+		} finally {
+			if(pstmtSelectAllShoppingcart != null) {
+				try {
+					pstmtSelectAllShoppingcart.close();
+				} catch(SQLException e) {
+					System.out.println("DB와 관련된 예외가 발생하였습니다, selectAllShoppingcart close");
+					e.printStackTrace();
+				}
+			}
+			if(rsSelectAllShoppingcart != null) {
+				try {
+					rsSelectAllShoppingcart.close();
+				} catch(SQLException e) {
+					System.out.println("DB와 관련된 예외가 발생하였습니다, selectAllShoppingcart close");
+					e.printStackTrace();
+				}
+			}
+		}
+		//그렇게 인덱스가 부여된 객체들을 리턴.
+		return arrayListAllShoppingcart;
+	}
+	//리턴 타입 int. 즉, 변경된 amount에 따른 price의 총 가격이 리턴된다. 
+	//매개변수로는 클래스 데이터 타입인 conn과 update 페이지에서 셋팅된 객체인 shoppingcart를 선언한다.
+	public int AmountOfShoppingcart(Connection conn, Shoppingcart shoppingcart) {
+		//초기값
+		PreparedStatement pstmtAmountOfShoppingcart = null;
+		//변경된 amount 값.
+		int amount = shoppingcart.getShoppingcartAmount();
+		//단가.
+		int price = shoppingcart.getShoppingcartPrice();
+		//총합.
+		int rePrice = price * amount;
+		//쿼리문을 변수에 대입.
+		String sqlAmountOfShoppingcart = "UPDATE shoppingcart SET shopping_amount=? where shoppingcart_no=?";
+		
+		try {
+			//쿼리문과 db연결에 필요한데이터를 pstmtAmountOfShoppingcart에 대입.
+			pstmtAmountOfShoppingcart = conn.prepareStatement(sqlAmountOfShoppingcart);
+			
+			//물음표에 변경된 수량과 테이블의 위치를 결정지을  SHoppingcartNo을 대입.
+			pstmtAmountOfShoppingcart.setInt(1, amount);
+			pstmtAmountOfShoppingcart.setInt(2, shoppingcart.getShoppingcartNo());
+			//쿼리 실행 및 결과 출력.
+			System.out.println("shoppingcart 테이블의 업데이트 결과" + pstmtAmountOfShoppingcart.executeUpdate());
+		//예외처리.
+		} catch (SQLException e) {
+			System.out.println("DB와 관련된 예외가 발생하였습니다, AmountOfShoppingcart close");
+			e.printStackTrace();
+		//객체 종료.
+		}finally {
+			if(pstmtAmountOfShoppingcart != null) {
+				try {
+					pstmtAmountOfShoppingcart.close();
+				} catch(SQLException e) {
+					System.out.println("DB와 관련된 예외가 발생하였습니다, AmountOfShoppingcart close");
+					e.printStackTrace();
+				}
+			}
+		}
+		//장바구니에 담긴 하나의 종목 총합을 리턴. *(이것들을 리턴 받아서 장바구니 페이지의 하단 총합에 모두 더하면 주문할 총합 실현 가능!)
+		return rePrice;
 	}
 }
 
