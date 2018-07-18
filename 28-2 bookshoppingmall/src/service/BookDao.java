@@ -1,3 +1,4 @@
+//2018-07-18 서연문
 package service;
 
 //필요한 패키지의 class를 import
@@ -9,17 +10,17 @@ public class BookDao {
 	
 	//책을 판매하기 위해 책의 정보를 입력하는 메서드
 	public void insertBook(Connection conn, Book book) {
-		//쿼리문 작성에 필요한 class를 객체 선언하고 초기값 null 설정
+		//객체 선언하고 초기값 null 설정
 		PreparedStatement pstmtInsertBook = null;
 		
-		//String타입으로 book테이블의 insert쿼리문 작성 
+		//book테이블의 INSERT쿼리문 작성 
 		String sqlInsertBook = "INSERT INTO book(bookcode_no, publisher_no, book_name, book_author, book_price, book_point, book_amount, book_out, book_date) VALUES(?, ?, ?, ?, ?, ?, ?, ?, NOW())";
 		
 		try {
 			//conn클래스를 통해 메서드를 작성한 쿼리문으로 호출하고 객체에 대입
 			pstmtInsertBook = conn.prepareStatement(sqlInsertBook);
 			
-			//insert를 위한 value값에 순서대로 set해준다
+			//INSERT를 위한 value값에 순서대로 set해준다
 			pstmtInsertBook.setInt(1, book.getBookCodeNo());
 			pstmtInsertBook.setInt(2, book.getPublisherNo());
 			pstmtInsertBook.setString(3, book.getBookName());
@@ -50,17 +51,20 @@ public class BookDao {
 	} 
 
 
+	//책의 정보를 삭제하기 위한 메서드
 	public void deleteBook(Connection conn, Book book) {
+		//객체 선언하고 초기값 null 설정
 		PreparedStatement pstmtDeleteBook = null;
 		
-		String sqlDeleteBook = "DELETE FROM book WHERE book_no=? && bookcode_no=? && publisher_no=?";
+		//book테이블의 DELETE쿼리문 작성
+		String sqlDeleteBook = "DELETE FROM book WHERE book_no=?";
 		
 		try {
+			//conn클래스를 통해 메서드를 작성한 쿼리문으로 호출하고 객체에 대입
 			pstmtDeleteBook = conn.prepareStatement(sqlDeleteBook);
 			
+			//DELETE를 위한 value값에 set해준다
 			pstmtDeleteBook.setInt(1, book.getBookNo());
-			pstmtDeleteBook.setInt(2, book.getBookCodeNo());
-			pstmtDeleteBook.setInt(3, book.getPublisherNo());
 			
 			//쿼리 실행
 			System.out.println("삭제된 book 레코드의 수 : " + pstmtDeleteBook.executeUpdate());
@@ -81,24 +85,32 @@ public class BookDao {
 	}
 	
 	
+	//책의 정보 수정을 위해 기존 정보를 SELECT하기 위한 메서드
 	public Book selectForUpdateBook(Connection conn, int bookNo) {
+		//객체 선언하고 초기값 null 설정
 		PreparedStatement pstmtSelectForUpdateBook = null;
 		ResultSet rsSelectForUpdateBook = null;
+		//Book클래스 데이터 타입으로 book객체 생성
 		Book book = null;
 		
+		//book테이블의 SELECT쿼리문 작성
 		String sqlSelectForUpdateBook = "SELECT book_no, bookcode_no, publisher_no, book_name, book_author, book_price, book_point, book_amount, book_out, book_date FROM book WHERE book_no=?";
 		
 		try { 
+			//conn클래스를 통해 메서드를 작성한 쿼리문으로 호출하고 객체에 대입
 			pstmtSelectForUpdateBook = conn.prepareStatement(sqlSelectForUpdateBook);
 			
+			//SELECT를 위한 value값에 set해준다
 			pstmtSelectForUpdateBook.setInt(1, bookNo);
 			
+			//쿼리 실행하고 리턴값 rs객체에 대입
 			rsSelectForUpdateBook = pstmtSelectForUpdateBook.executeQuery();
 			
+			//다음 값이 있다면
 			if(rsSelectForUpdateBook.next()) {
-				
+				//생성자를 통해 Book클래스를 생성하고  주소값을 book객체에 대입
 				book = new Book();
-				
+				//book객체에 대입된 주소값을 따라가 SELECT한 정보를 set해줌
 				book.setBookNo(rsSelectForUpdateBook.getInt("book_no"));
 				book.setBookCodeNo(rsSelectForUpdateBook.getInt("bookcode_no"));
 				book.setPublisherNo(rsSelectForUpdateBook.getInt("publisher_no"));
@@ -135,13 +147,19 @@ public class BookDao {
 	}
 	
 	
+	//책의 정보를 수정해주기 위한 메서드
 	public void updateBook(Connection conn, Book book) {
+		//객체 선언하고 초기값 null 설정
 		PreparedStatement pstmtUpdateBook = null;	
 		
+		//book테이블의 UPDATE쿼리문 작성
 		String sqlUpdateBook = "UPDATE book	SET bookcode_no=? book_name=? book_author=? book_price=? book_point=? book_amount=? book_out=? WHERE book_no=?";
 		
 		try {
+			//conn클래스를 통해 메서드를 작성한 쿼리문으로 호출하고 객체에 대입
 			pstmtUpdateBook = conn.prepareStatement(sqlUpdateBook);
+			
+			//각 ?값에 순서대로 대입
 			pstmtUpdateBook.setInt(1, book.getBookCodeNo());
 			pstmtUpdateBook.setString(2, book.getBookName());
 			pstmtUpdateBook.setString(3, book.getBookAuthor());
@@ -151,6 +169,7 @@ public class BookDao {
 			pstmtUpdateBook.setString(7, book.getBookOut());
 			pstmtUpdateBook.setInt(8, book.getBookNo());
 			
+			//쿼리 실행
 			pstmtUpdateBook.executeUpdate();
 			
 		} catch(SQLException e) {
@@ -170,21 +189,30 @@ public class BookDao {
 	}
 	
 	
+	//책의 리스트를 출력하기 위한 SELECTE 메서드
 	public ArrayList<BookAndPublisher> selectAllBooks(Connection conn, int bookNo) {
+		//객체 선언하고 초기값 null 설정
 		PreparedStatement pstmtSelectAllBooks = null;
 		ResultSet rsSelectAllBook = null;
 		
+		//리스트를 리턴해줄 배열을 객체 선언
 		ArrayList<BookAndPublisher> arrayListBookAndPublisher = new ArrayList<BookAndPublisher>(); 
 		
+		//book테이블의 SELECT쿼리문 작성
 		String sqlSelectBook = "SELECT book_no, publisher_name, book_name, book_author, book_price, book_point, book_amount, book_out, book_date FROM book b INNER JOIN publisher p on b.publisher_no = p.publisher_no";
 		
-		try {			
+		try {
+			//conn클래스를 통해 메서드를 작성한 쿼리문으로 호출하고 객체에 대입
 			pstmtSelectAllBooks = conn.prepareStatement(sqlSelectBook);
 			
+			//쿼리 실행 및 rs객체에 리턴값 대입
 			rsSelectAllBook = pstmtSelectAllBooks.executeQuery();
 			
+			//리턴값이 있다면
 			while(rsSelectAllBook.next()) {
-				Book book = new Book();				
+				//생성자를 통해 Book클래스를 생성하고  주소값을 Book클래스 데이터 타입으로 생성된 book객체에 대입
+				Book book = new Book();
+				//book객체에 대입된 주소값을 찾아가 set
 				book.setBookNo(rsSelectAllBook.getInt("book_no"));
 				book.setBookName(rsSelectAllBook.getString("book_name"));
 				book.setBookAuthor(rsSelectAllBook.getString("book_author"));
@@ -194,14 +222,19 @@ public class BookDao {
 				book.setBookOut(rsSelectAllBook.getString("book_out"));
 				book.setBookDate(rsSelectAllBook.getString("book_date"));
 				
+				//생성자를 통해 Publisher클래스를 생성하고 주소값을 Publisher클래스 데이터 타입으로 생성된 publisher객체에 대입
 				Publisher publisher = new Publisher();			
-				publisher.setPublisherName(publisher.getString("publisher_name"));
+				//publisher객체에 대입된 주소값을 찾아가 set
+				publisher.setPublisherName(rsSelectAllBook.getString("publisher_name"));
 				
-				BookAndPublisher bookAndPublisher = new BookAndPublisher;
-				BookAndPublisher.setBook();
-				BookAndPublisher.setPublisher();
+				//위와 마찬가지로 BookAndPublisher클래스 객체 생성 대입
+				BookAndPublisher bookAndPublisher = new BookAndPublisher();
+				//대입된 주소값을 찾아가 set
+				bookAndPublisher.setBook(book);
+				bookAndPublisher.setPublisher(publisher);
 				
-				arrayListBookAndPublisher.add(BookAndPublisher);
+				//배열에 저장
+				arrayListBookAndPublisher.add(bookAndPublisher);
 			}	
 		} catch(SQLException e) {
 			System.out.println("DB와 관련된 예외가 발생하였습니다, selectAllBooks main");
