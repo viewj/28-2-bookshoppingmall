@@ -9,7 +9,7 @@
 	<body>
 		<%
 			// 세션 정보 받아오기
-			Integer sessionMemberNo = (Integer)session.getAttribute("sessionMemberNo");
+			int sessionMemberNo = (int)session.getAttribute("sessionMemberNo");
 			String sessionMemberName = (String)session.getAttribute("sessionMemberName");
 		%>
 		
