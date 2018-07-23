@@ -11,16 +11,16 @@ public class MemberDao {
 		PreparedStatement pstmtInsertMember = null;
 		
 		// member 테이블에 레코드를 생성하는 쿼리문 
-		String sqlInsertMember = "INSERT INTO member(member_id,member_pw, member_name, member_addr, member_point, member_date) VALUES (?, ?, ?, ?, ?, now())";
+		String sqlInsertMember = "INSERT INTO member(member_id,member_pw, member_name, member_addr, member_date) VALUES (?, ?, ?, ?, now())";
 		
 		try {
 			pstmtInsertMember = conn.prepareStatement(sqlInsertMember);
 			// 레코드에 넣을 값을 설정(?자리에 순서대로 들어감)
 			pstmtInsertMember.setString(1, member.getMemberId());
 			pstmtInsertMember.setString(2, member.getMemberPw());
-			pstmtInsertMember.setString(3, member.getMemberAddr());
-			pstmtInsertMember.setString(4, member.getMemberPoint());
-			pstmtInsertMember.setString(5, member.getMemberPoint());
+			pstmtInsertMember.setString(3, member.getMemberName());
+			pstmtInsertMember.setString(4, member.getMemberAddr());
+			
 			// 쿼리문이 실행될 경우 변화가 있는 레코드의 숫자를 리턴하는데 그 값을 변수에 담는다.
 			int resultUpdate = pstmtInsertMember.executeUpdate();
 			// 변화가 있는 레코드의 숫자 확인

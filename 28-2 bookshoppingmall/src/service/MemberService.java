@@ -1,5 +1,6 @@
 package service;
 
+import java.util.ArrayList;
 import java.sql.*;
 import service.*;
 
@@ -8,7 +9,7 @@ public class MemberService {
 	// 회원 정보와 관심사 두 테이블이 한번에 만들어지게 하기 위해 트랜잭션 단위로 작업하였다.
 	// 매개변수는 회원가입 폼에서 입력받은 정보가 담긴 member 객체와 memberinter 객체.
 	// 리턴 데이터는 없다.
-	public boolean addMember(Member member, Memberinter memberinter) {
+	public boolean addMember(Member member, ArrayList<Memberinter> arrayListMemberinter) {
 		Connection conn = null;
 		boolean resultOfaddMember = false;
 		System.out.println("");
@@ -26,15 +27,20 @@ public class MemberService {
 			
 			// member 테이블에 한 개의 레코드를 추가하는 메서드 실행
 			memberDao.insertMember(conn, member);
-			memberinterDao.insertMemberinter(conn, memberinter);
 			
+			// member_no을 가져오기 위함 (밑의 관심 장르 추가하는 부분  + 회원가입 시 바로 세션정보 저장하여 로그인 처리하는 부분 에서 필요)
+			memberDao.memberGetVO(conn, member);
+		
+			// 관심있는 장르가 없다면 insertMemberinter 메서드를 실행하지 않는 것이 좋을 것같다.
+			if(arrayListMemberinter.size() != 0) {
+				// memberinter 테이블에 한 개 이상의 레코드를 추가하는 메서드
+				memberinterDao.insertMemberinter(conn, arrayListMemberinter, member);
+			}
 			// 예외 없이 여기까지 진행 됐다면 커밋을 통해 실제 DB에 반영
 			conn.commit();
 			
-			// member_no을 가져오기 위함 (회원가입이 성공하면 바로 로그인 되게끔)
-			memberDao.memberGetVO(conn, member);
-			
 			resultOfaddMember = true;
+		
 		} catch (Exception e){
 			e.printStackTrace();
 			try {

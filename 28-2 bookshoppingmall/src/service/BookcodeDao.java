@@ -1,9 +1,65 @@
 package service;
 
+import java.util.ArrayList;
 import java.sql.*;
 import service.*;
 
 public class BookcodeDao {
+	
+	// bookcode 테이블의 모든 레코드를 조회하는 메서드
+	// 매개변수로는 conn 객체를 입력받는다.(쿼리 준비하는 메서드를 이용해야 하기 때문)
+	// 리턴 데이터 타입으로는 북코드객체를 담는 배열리스트. 조회된 모든 레코드를 담기 위함이다.
+	public ArrayList<Bookcode> selectAllBookcodes(Connection conn){
+		PreparedStatement pstmtSelectAllBookcodes = null;
+		ResultSet rsSelectAllBookcodes = null;
+		ArrayList<Bookcode> arrayListSelectAllBookcodes = new ArrayList<Bookcode>();
+		Bookcode bookcode = null;
+		
+		// bookcode 테이블의 모든 레코드를 조회하는 쿼리작성
+		String sqlSelectAllBookCodes = "SELECT bookcode_no, bookcode_name FROM bookcode";
+		
+		try {
+			// 위에서 준비한 쿼리 준비
+			pstmtSelectAllBookcodes = conn.prepareStatement(sqlSelectAllBookCodes);
+			
+			// 쿼리 실행 후 리턴된 ResultSet 객체의 참조값을  객체참조변수에 대입
+			rsSelectAllBookcodes = pstmtSelectAllBookcodes.executeQuery();
+			
+			// 모든 레코드를 ArrayList에 담기위한 while문
+			while(rsSelectAllBookcodes.next()) {
+				// bookcode 객체를 생성하고 그 객체 내부 데이터 영역에 조회된 각각의 값을 대입한다.
+				bookcode = new Bookcode();
+			
+				bookcode.setBookcodeNo(rsSelectAllBookcodes.getInt("bookcode_no"));
+				bookcode.setBookcodeName(rsSelectAllBookcodes.getString("bookcode_name"));
+				
+				// 그렇게 완성된 bookcode VO를 add메서드를 통해 리스트에 추가한다. 
+				arrayListSelectAllBookcodes.add(bookcode);
+			}
+		} catch(SQLException e) {
+			System.out.println("DB와 관련된 예외가 발생하였습니다, insertBookcode main");
+			e.printStackTrace();
+		} finally {
+			if(pstmtSelectAllBookcodes != null) {
+				try {
+					pstmtSelectAllBookcodes.close();
+				} catch(SQLException e) {
+					System.out.println("DB와 관련된 예외가 발생하였습니다, insertBookcode close");
+					e.printStackTrace();
+				}
+			}
+			if(rsSelectAllBookcodes != null) {
+				try {
+					rsSelectAllBookcodes.close();
+				} catch(SQLException e) {
+					System.out.println("DB와 관련된 예외가 발생하였습니다, insertBookcode close");
+					e.printStackTrace();
+				}
+			}
+		}
+		return arrayListSelectAllBookcodes;
+	}
+	
 	//void 리턴 타입. 매서드 insertBookcode를 선언하고 
 	//매개변수로는 Connection 클래스 데이터 타입인 conn과 Bookcode 클래스 데이터 타입인 bookcode를 선언.
 	public void insertBookcode(Connection conn, Bookcode bookcode) {
@@ -68,6 +124,5 @@ public class BookcodeDao {
 				}
 			}
 		}
-		
 	}
 }

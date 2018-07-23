@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="service.*"%>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -26,7 +28,21 @@
 			<br><br>
 			<label>
 				Your Address<br><br>
-				<input tpye="text" name="memberAddr">
+				<input type="text" name="memberAddr">
+			</label>
+			<br><br>
+			<label>
+				Your Interesting Categories of Books<br><br>
+				<%
+					// getAllBookcodes 메서드를 호출하고 리턴받은 리스트를 객체참조변수에 대입
+					BookcodeService bookcodeService = new BookcodeService();
+					ArrayList<Bookcode> arrayListOfAllBookcodes = bookcodeService.getAllBookcodes();
+					for(int i = 0; i < arrayListOfAllBookcodes.size(); i++){
+				%>
+						<input type="checkbox" name="memberinter" value="<%= arrayListOfAllBookcodes.get(i).getBookcodeNo()%>"><%= arrayListOfAllBookcodes.get(i).getBookcodeName() %>
+				<%
+					}
+				%>
 			</label>
 			<br><br><br>
 			<button>Create</button>
