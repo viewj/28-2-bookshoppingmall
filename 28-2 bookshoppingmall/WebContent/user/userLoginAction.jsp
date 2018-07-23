@@ -8,6 +8,9 @@
 	</head>
 	<body>
 		<%	
+			System.out.println("");
+			System.out.println("location : user/userLoginAction.jsp");
+			
 			// 파라미터 인코딩 정보 
 			request.setCharacterEncoding("UTF-8");
 			
@@ -22,7 +25,7 @@
 			String memberPw = request.getParameter("memberPw");
 			
 			// 값 테스트 
-			System.out.println("userLoginAction, memberId & memberPw : " + memberId + " & " + memberPw);
+			System.out.println("memberId & memberPw : " + memberId + " & " + memberPw);
 			
 			// member 객체 내부 데이터 영역에 setter를 이용하여 값 대입
 			member.setMemberId(memberId);
@@ -38,16 +41,19 @@
 				
 				// 세션에 필요한 정보를 VO로부터 받아 세션영역에 대입.
 				session.setAttribute("sessionMemberNo", member.getMemberNo());
-				session.setAttribute("sessionMemberName", member.getMemberName());
+				session.setAttribute("sessionMemberId", member.getMemberId());
 				
-				response.sendRedirect("/user/index.jsp");
+				response.sendRedirect(request.getContextPath() + "/user/index.jsp");
 			} else if(resultOfLogin.equals("비밀번호불일치")) {
 				System.out.println("비밀번호가 일치하지 않습니다.");
-				response.sendRedirect("/user/userLogin.jsp");
+				response.sendRedirect(request.getContextPath() + "/user/userLoginForm.jsp");
 			} else{
 				System.out.println("아이디가 일치하지 않습니다.");
-				response.sendRedirect("/user/userLogin.jsp");
+				response.sendRedirect(request.getContextPath() + "/user/userLoginForm.jsp");
 			}
+			
+			System.out.println("");
+			System.out.println("End of user/userLoginAction.jsp");
 		%>
 	</body>
 </html>

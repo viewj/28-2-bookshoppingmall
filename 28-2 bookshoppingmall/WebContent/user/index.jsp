@@ -8,23 +8,38 @@
 	</head>
 	<body>
 		<%
+			System.out.println("");
+			System.out.println("location : user/index.jsp");
+		
 			// 세션 정보 받아오기
-			int sessionMemberNo = (int)session.getAttribute("sessionMemberNo");
-			String sessionMemberName = (String)session.getAttribute("sessionMemberName");
+			Integer sessionMemberNo = (Integer)session.getAttribute("sessionMemberNo");
+			String sessionMemberId = (String)session.getAttribute("sessionMemberId");
+			
+			// 값 테스트
+			System.out.println("sessionMemberNo & sessionMemberId : " + sessionMemberNo + " & " + sessionMemberId);
 		%>
 		
-		<h1>28번가</h1>
+		<div id="quickNav" align="right">
+			<%
+				if(sessionMemberId == null){
+			%>
+					<a href="<%= request.getContextPath() %>/user/userLoginForm.jsp">Sign in</a> | Sign Up | Cart | My page 
+			<%
+				} else {
+			%>
+					Hello! <%= sessionMemberId %>  | <a href="<%= request.getContextPath() %>/user/userLogout.jsp">Sign out</a> | Cart | My page 
+			<%
+				}
+			%>
+		</div>
+		<br><br>
+		<div id="mainTitle" align="center">
+			<h1>The Lives of Others</h1>
+		</div>
 		<br><br>
 		<%
-			if(sessionMemberName == null){
-		%>
-				<div> 로그인 | 회원가입 | 장바구니 | 마이페이지 </div>
-		<%
-			} else {
-		%>
-				<div> <%= sessionMemberName %> 님| 회원가입 | 장바구니 | 마이페이지 </div>
-		<%
-			}
+			System.out.println("");
+			System.out.println("End of user/index.jsp");
 		%>
 	</body>
 </html>

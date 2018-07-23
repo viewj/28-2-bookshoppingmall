@@ -2,8 +2,6 @@ package service;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
-
 import service.*;
 
 public class MemberDao {
@@ -11,6 +9,7 @@ public class MemberDao {
 	public void insertMember(Connection conn, Member member) {
 		// 객체참조변수 선언
 		PreparedStatement pstmtInsertMember = null;
+		
 		// member 테이블에 레코드를 생성하는 쿼리문 
 		String sqlInsertMember = "INSERT INTO member(member_id,member_pw, member_name, member_addr, member_point, member_date) VALUES (?, ?, ?, ?, ?, now())";
 		
@@ -123,14 +122,16 @@ public class MemberDao {
 		return result;
 	}
 	
-	public Member memberGetVO(Connection conn, Member member) {
+	public void memberGetVO(Connection conn, Member member) {
+		System.out.println("");
+		System.out.println("location : MemberDao/memberGetVO");
+		
 		// 객체참조변수 선언
 		PreparedStatement pstmtMemberGetVO = null;
 		ResultSet rsMemberGetVO = null;
+		
 		// member_id값을 이용하여 레코드의 일부분을 가져올 수 있는 쿼리문
-		String sqlMemberGetVO = "SELECT member_no, member_name FROM member WHERE member_id=?";
-		// 리턴할 member클래스 선언
-		Member returnMember = new Member();
+		String sqlMemberGetVO = "SELECT member_no FROM member WHERE member_id=?";
 		
 		try {
 			pstmtMemberGetVO = conn.prepareStatement(sqlMemberGetVO);
@@ -138,18 +139,17 @@ public class MemberDao {
 			rsMemberGetVO = pstmtMemberGetVO.executeQuery();
 			
 			if (rsMemberGetVO.next()) {
-				returnMember.setMemberNo(rsMemberGetVO.getInt("member_no"));
-				returnMember.setMemberName(rsMemberGetVO.getString("member_name"));
+				member.setMemberNo(rsMemberGetVO.getInt("member_no"));
 			}
 		} catch (SQLException e) {
-			System.out.println("DB에서 예외가 발생하였습니다, memberGetVO");
+			System.out.println("DB에서 예외가 발생하였습니다.");
 			e.printStackTrace();
 		} finally {
 			if (rsMemberGetVO != null) {
 				try {
 					rsMemberGetVO.close();
 				} catch(SQLException sqlException) {
-					System.out.println("ResultSet 객체 종료 중 예외 발생, rsMemberGetVO");
+					System.out.println("ResultSet 객체 종료 중 예외 발생");
 					sqlException.printStackTrace();
 				}
 			}
@@ -161,9 +161,10 @@ public class MemberDao {
 					sqlException.printStackTrace();
 				}
 			}
+			
+			System.out.println("");
+			System.out.println("End of MemberDao/memberGetVO");
 		}
-		
-		return returnMember;
 	}
 	
 	public ArrayList<Member> selectAllMembers(Connection conn) {
