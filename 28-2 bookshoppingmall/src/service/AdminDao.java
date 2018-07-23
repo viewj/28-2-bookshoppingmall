@@ -5,6 +5,35 @@ import service.*;
 import java.util.ArrayList;
 
 public class AdminDao {
+	
+	public void insertAdmin(Connection conn, Admin admin) {
+		PreparedStatement pstmtInsertAdmin = null;
+		String sqlInsertAdmin = "INSERT INTO admin(admin_id, admin_pw, admin_name, admin_date) VALUES (?, ?, ?, now())";
+		
+		try {
+			pstmtInsertAdmin = conn.prepareStatement(sqlInsertAdmin);
+			pstmtInsertAdmin.setString(1, admin.getAdminId());
+			pstmtInsertAdmin.setString(2, admin.getAdminPw());
+			pstmtInsertAdmin.setString(3, admin.getAdminName());
+			
+			int resultInsert = pstmtInsertAdmin.executeUpdate();
+			System.out.println("admin 테이블에 삭제된 행 갯수 : " + resultInsert);
+		} catch (SQLException e) {
+			System.out.println("DB에서 예외가 발생하였습니다, InsertAdmin");
+			e.printStackTrace();
+		} finally {
+			if (pstmtInsertAdmin != null) {
+				try {
+					pstmtInsertAdmin.close();
+				} catch(SQLException sqlException) {
+					System.out.println("pstmtInsertAdmin 객체 종료 중 예외 발생");
+					sqlException.printStackTrace();
+				}
+			}
+		}
+		
+	}
+	
 	public void deleteAdmin(Connection conn, Admin admin) {
 		// 객체참조변수 선언
 		PreparedStatement pstmtDeleteAdmin = null;
@@ -18,7 +47,7 @@ public class AdminDao {
 			// admin테이블에서 수정된 레코드의 수를 리턴 받은 값을 변수에 담는다.
 			int resultUpdate = pstmtDeleteAdmin.executeUpdate();
 			
-			System.out.println("member 테이블에 삭제된 행 갯수 : " + resultUpdate);
+			System.out.println("admin 테이블에 삭제된 행 갯수 : " + resultUpdate);
 		} catch (SQLException e) {
 			System.out.println("DB에서 예외가 발생하였습니다, deleteAdmin");
 			e.printStackTrace();

@@ -10,7 +10,7 @@
 		%>
 		<h1>관리자 로그인</h1>
 		<br><br>
-		<form action="/admin/adminLoginAction.jsp" method="post">
+		<form action="./adminLoginAction.jsp" method="post">
 			<label>
 				아이디<br><br>
 				<input type="text" id="adminId" name="adminId">
