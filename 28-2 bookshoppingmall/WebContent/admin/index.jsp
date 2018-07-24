@@ -15,6 +15,10 @@
 			Integer sessionAdminNo = (Integer)session.getAttribute("sessionAdminNo");
 			String sessionAdminId = (String)session.getAttribute("sessionAdminId");
 			
+			// 세션 정보 보내기
+			session.setAttribute("sessionAdminId", sessionAdminId);
+			session.setAttribute("sessionAdminNo", sessionAdminNo);
+			
 			// 값 테스트
 			System.out.println("sessionAdminNo & sessionAdminId : " + sessionAdminNo + " & " + sessionAdminId);
 		%>
