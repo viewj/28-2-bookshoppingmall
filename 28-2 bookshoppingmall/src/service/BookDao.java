@@ -86,15 +86,16 @@ public class BookDao {
 	
 	
 	//책의 정보 수정을 위해 기존 정보를 SELECT하기 위한 메서드
-	public Book selectForUpdateBook(Connection conn, int bookNo) {
+	public BookUpdate selectForUpdateBook(Connection conn, int bookNo) {
 		//객체 선언하고 초기값 null 설정
 		PreparedStatement pstmtSelectForUpdateBook = null;
 		ResultSet rsSelectForUpdateBook = null;
 		//Book클래스 데이터 타입으로 book객체 생성
-		Book book = null;
+		BookUpdate bookUpdate = null;
 		
-		//book테이블의 SELECT쿼리문 작성
-		String sqlSelectForUpdateBook = "SELECT book_no, bookcode_no, publisher_no, book_name, book_author, book_price, book_point, book_amount, book_out, book_date FROM book WHERE book_no=?";
+		//book테이블에 들어있는 bookcode_no값 과 publisher_no값을 해당테이블의 name값으로 가져오기 위한 JOIN문입니다.
+		String sqlSelectForUpdateBook = "SELECT book.book_no ,book.book_name ,book.book_author ,book.book_price ,book.book_point ,book.book_amount ,book.book_out ,bookcode.bookcode_name ,publisher.publisher_name "
+					+"FROM book left JOIN bookcode ON book.bookcode_no = bookcode.bookcode_no left JOIN publisher ON book.publisher_no = publisher.publisher_no WHERE book.book_no=?";
 		
 		try { 
 			//conn클래스를 통해 메서드를 작성한 쿼리문으로 호출하고 객체에 대입
@@ -109,18 +110,18 @@ public class BookDao {
 			//다음 값이 있다면
 			if(rsSelectForUpdateBook.next()) {
 				//생성자를 통해 Book클래스를 생성하고  주소값을 book객체에 대입
-				book = new Book();
+				bookUpdate = new BookUpdate();
 				//book객체에 대입된 주소값을 따라가 SELECT한 정보를 set해줌
-				book.setBookNo(rsSelectForUpdateBook.getInt("book_no"));
-				book.setBookCodeNo(rsSelectForUpdateBook.getInt("bookcode_no"));
-				book.setPublisherNo(rsSelectForUpdateBook.getInt("publisher_no"));
-				book.setBookName(rsSelectForUpdateBook.getString("book_name"));
-				book.setBookAuthor(rsSelectForUpdateBook.getString("book_author"));
-				book.setBookPrice(rsSelectForUpdateBook.getInt("book_price"));
-				book.setBookPoint(rsSelectForUpdateBook.getInt("book_point"));
-				book.setBookAmount(rsSelectForUpdateBook.getInt("book_amount"));
-				book.setBookOut(rsSelectForUpdateBook.getString("book_out"));
-				book.setBookDate(rsSelectForUpdateBook.getString("book_date"));
+				bookUpdate.setBookNo(rsSelectForUpdateBook.getInt("book_no"));
+				bookUpdate.setBookPrice(rsSelectForUpdateBook.getInt("book_price"));
+				bookUpdate.setBookPoint(rsSelectForUpdateBook.getInt("book_point"));
+				bookUpdate.setBookAmount(rsSelectForUpdateBook.getInt("book_amount"));
+				bookUpdate.setBookCodeName(rsSelectForUpdateBook.getString("bookcode_name"));
+				bookUpdate.setPublisherName(rsSelectForUpdateBook.getString("publisher_name"));
+				bookUpdate.setBookName(rsSelectForUpdateBook.getString("book_name"));
+				bookUpdate.setBookAuthor(rsSelectForUpdateBook.getString("book_author"));
+				bookUpdate.setBookOut(rsSelectForUpdateBook.getString("book_out"));
+				
 			}
 		} catch(SQLException e) {
 			System.out.println("DB와 관련된 예외가 발생하였습니다, selectForUpdateBook main");
@@ -143,7 +144,7 @@ public class BookDao {
 				}
 			}
 		}	
-		return book;	
+		return bookUpdate;	
 	}
 	
 	

@@ -5,7 +5,8 @@ import service.*;
 import java.sql.*;
 
 public class BookService {
-
+	
+	//책 등록화면에서 입력한 값을 처리하는 메서드입니다.
 	public boolean addBook(Book book) {
 		
 		Connection conn = null;
@@ -49,4 +50,20 @@ public class BookService {
 		return resultOfAddBook;
 	}
 	
+	public BookUpdate updateBookSelect(int bookNo) {
+		
+		Connection conn = null;
+		BookUpdate bookUpdate = new BookUpdate();
+		
+		// Dbutil클래스를 통해 드라이브 로딩및 연결 
+		conn = DButil.connectDB();
+		
+		// 쿼리실행을 위해 Dao클래스 타입의 참조변수 생성
+		BookDao bookDao = new BookDao();
+		
+		//Dao클래스에 있는 메서드 실행 후 리턴값을 변수에 대입 했습니다.
+		bookUpdate = bookDao.selectForUpdateBook(conn ,bookNo);
+			
+		return bookUpdate;
+	}
 }
