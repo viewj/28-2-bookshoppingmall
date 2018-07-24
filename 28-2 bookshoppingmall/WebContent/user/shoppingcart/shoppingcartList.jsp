@@ -42,7 +42,7 @@
 							<td><%=purchaseList.getShoppingcartAmount()%></td>
 							<td><%=purchaseList.getShoppingcartPrice()*purchaseList.getShoppingcartAmount()%></td>
 							<td><%=purchaseList.getShoppingcartDate()%></td>
-							<td><a href="">주문하기</a></td>
+							<td><input type="submit" value="주문하기"></td>
 							<td><a href="./deleteShoppingcartAction.jsp?shoppingcartNo=<%=purchaseList.getShoppingcartNo()%>">삭제하기</a></td>
 						</tr>
 			<%
@@ -52,7 +52,6 @@
 		</table><br>
 		
 		<a href="../book/bookList.jsp">쇼핑 계속하기</a>
-		<a >주문하기</a>
 	</div>
 	</body>
 </html>

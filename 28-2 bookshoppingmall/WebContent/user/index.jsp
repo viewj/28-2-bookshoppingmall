@@ -49,11 +49,7 @@
 				<%
 					if(sessionMemberId != null){
 				%>
-						<li><a href="<%= request.getContextPath() %>/user/userLoginForm.jsp">주문 내역</a></li>
-				<%
-					} else{
-				%>
-						<li><a href="<%= request.getContextPath() %>/user/userLoginForm.jsp">주문 내역</a>
+						<li><a href="<%= request.getContextPath() %>/user/">주문 내역</a></li>
 				<%
 					}
 				%>

@@ -134,20 +134,22 @@ CREATE TABLE IF NOT EXISTS `memberinter` (
 
 
 -- 테이블 bookshop의 구조를 덤프합니다. orders
-CREATE TABLE IF NOT EXISTS `orders` (
-  `orders_no` int(10) NOT NULL AUTO_INCREMENT,
-  `book_no` int(10) NOT NULL,
-  `member_no` int(10) NOT NULL,
-  `order_price` varchar(50) NOT NULL,
-  `orders_amount` int(10) NOT NULL,
-  `orders_date` datetime NOT NULL,
-  `orders_addr` varchar(50) NOT NULL,
-  PRIMARY KEY (`orders_no`),
-  KEY `FK_orders_book` (`book_no`),
-  KEY `FK_orders_member` (`member_no`),
-  CONSTRAINT `FK_orders_book` FOREIGN KEY (`book_no`) REFERENCES `book` (`book_no`),
-  CONSTRAINT `FK_orders_member` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `orders` (
+	`orders_no` INT(10) NOT NULL AUTO_INCREMENT,
+	`book_no` INT(10) NOT NULL,
+	`member_no` INT(10) NOT NULL,
+	`order_price` INT(11) NOT NULL,
+	`orders_amount` INT(10) NOT NULL,
+	`orders_date` DATETIME NOT NULL,
+	`orders_addr` VARCHAR(50) NOT NULL,
+	PRIMARY KEY (`orders_no`),
+	INDEX `FK_orders_book` (`book_no`),
+	INDEX `FK_orders_member` (`member_no`),
+	CONSTRAINT `FK_orders_book` FOREIGN KEY (`book_no`) REFERENCES `book` (`book_no`),
+	CONSTRAINT `FK_orders_member` FOREIGN KEY (`member_no`) REFERENCES `member` (`member_no`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB;
 
 -- Dumping data for table bookshop.orders: ~0 rows (대략적)
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
