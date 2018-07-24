@@ -170,11 +170,11 @@ public class QnaDao {
 			ArrayListQna = new ArrayList<Qna>();
 			while(rsSelectAllQnas.next()) {
 				qna = new Qna();
-				qna.setQna_no(Integer.parseInt("qna_no"));
-				qna.setMember_no(Integer.parseInt("member_no"));
-				qna.setQna_title("qna_title");
-				qna.setQna_content("qna_content");
-				qna.setQna_date("qna_date");
+				qna.setQna_no(rsSelectAllQnas.getInt("qna_no"));
+				qna.setMember_no(rsSelectAllQnas.getInt("member_no"));
+				qna.setQna_title(rsSelectAllQnas.getString("qna_title"));
+				qna.setQna_content(rsSelectAllQnas.getString("qna_content"));
+				qna.setQna_date(rsSelectAllQnas.getString("qna_date"));
 				ArrayListQna.add(qna);
 			}
 			

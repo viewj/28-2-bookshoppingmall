@@ -128,4 +128,12 @@ public class MemberService {
 			System.out.println("End of MemberService/memberGetVO()");
 		}
 	}
+	public String selectMemberNameForQnaList(int memberNo) {
+		Connection conn = DButil.connectDB();
+		
+		MemberDao memberDao = new MemberDao();
+		String memberName = memberDao.selectMemberNameForQnaList(conn, memberNo);
+		
+		return memberName;
+	}
 }

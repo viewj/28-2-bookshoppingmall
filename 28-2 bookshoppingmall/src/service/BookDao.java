@@ -260,4 +260,29 @@ public class BookDao {
 		}		
 		return arrayListBookAndPublisher;
 	}
+	
+	public String selectForBookOut(Connection conn, Shoppingcart shoppingcart) {
+		PreparedStatement pstmtSelectForBookOut = null;
+		ResultSet rsSelectForBookOut = null;
+		int bookNo = shoppingcart.getBookNo();
+		String bookOutCheck = null;
+		String sqlSelectForBookOut = "SELECT book_out FROM book where book_no=?";
+		try {
+			pstmtSelectForBookOut = conn.prepareStatement(sqlSelectForBookOut);
+		
+			pstmtSelectForBookOut.setInt(1, bookNo);
+			
+			rsSelectForBookOut = pstmtSelectForBookOut.executeQuery();
+			
+			if(rsSelectForBookOut.next()) {
+				bookOutCheck = rsSelectForBookOut.getString("book_out");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return bookOutCheck;
+	}
+	
 }
+
+

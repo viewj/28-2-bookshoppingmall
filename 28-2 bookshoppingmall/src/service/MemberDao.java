@@ -249,6 +249,28 @@ public class MemberDao {
 		return returnMember;
 		
 	}
+	
+	public String selectMemberNameForQnaList(Connection conn, int memberNo) {
+		PreparedStatement pstmtSelectMemberNameForQnaList = null;
+		ResultSet rsSelectMemberNameForQnaList = null;
+		String selectMemberNo = null;
+		String sqlSelectMemberNameForQnaList = "SELECT member_name FROM member WHERE member_no=?";
+		try {
+			pstmtSelectMemberNameForQnaList = conn.prepareStatement(sqlSelectMemberNameForQnaList);
+		
+			pstmtSelectMemberNameForQnaList.setInt(1, memberNo);
+			rsSelectMemberNameForQnaList = pstmtSelectMemberNameForQnaList.executeQuery();
+		
+			if(rsSelectMemberNameForQnaList.next()) {
+				selectMemberNo = rsSelectMemberNameForQnaList.getString("member_name");
+			}
+		} catch (SQLException e) {
+			System.out.println("DB에서 예외가 발생하였습니다, SelectMember");
+			e.printStackTrace();
+		}
+		return selectMemberNo;
+		
+	}
 }
 
 
