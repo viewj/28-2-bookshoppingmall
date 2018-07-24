@@ -175,7 +175,7 @@ public class QnaService {
 						e2.printStackTrace();
 					}
 				}
-				System.out.println("End of QnaService/deleteQna()");
+				System.out.println("End of QnaService/selectAllQnas()");
 			}
 		}
 		return arrayListQna;
