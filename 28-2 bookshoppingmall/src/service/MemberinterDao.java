@@ -146,7 +146,7 @@ public class MemberinterDao {
 			//INSERT를 위한 value값에 순서대로 set해준다
 			for(int i = 0; i < arrayListMemberinter.size(); i++) {
 				pstmtInsertMemberinter.setInt(1, memberNo);
-				pstmtInsertMemberinter.setInt(2, arrayListMemberinter.get(i).getMemberinterNo());
+				pstmtInsertMemberinter.setInt(2, arrayListMemberinter.get(i).getBookcodeNo());
 				System.out.println("삽입된 memberinter 레코드의 수 : " +pstmtInsertMemberinter.executeUpdate());
 			}
 		} catch(SQLException e) {
