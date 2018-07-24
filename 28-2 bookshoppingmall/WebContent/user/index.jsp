@@ -23,17 +23,17 @@
 			<%
 				if(sessionMemberId == null){
 			%>
-					<a href="<%= request.getContextPath() %>/user/userLoginForm.jsp">Sign in</a> | 
-					<a href="<%= request.getContextPath() %>/user/signUpForm.jsp">Sign Up</a> | 
-					Cart | 
-					My page 
+					<a href="<%= request.getContextPath() %>/user/userLoginForm.jsp">로그인</a> | 
+					<a href="<%= request.getContextPath() %>/user/signUpForm.jsp">회원 가입</a> | 
+					<a href="<%= request.getContextPath() %>/user/userLoginForm.jsp">장바구니</a> | 
+					<a href="<%= request.getContextPath() %>/user/userLoginForm.jsp">내 정보</a> 
 			<%
 				} else {
 			%>
-					Hello! <%= sessionMemberId %>  | 
-					<a href="<%= request.getContextPath() %>/user/userLogout.jsp">Sign out</a> | 
-					Cart | 
-					My page 
+					안녕! <%= sessionMemberId %>  | 
+					<a href="<%= request.getContextPath() %>/user/userLogout.jsp">로그아웃</a> | 
+					<a href="#장바구니리스트">장바구니</a> | 
+					<a href="#내정보">내 정보</a>
 			<%
 				}
 			%>
@@ -41,6 +41,23 @@
 		<br><br>
 		<div id="mainTitle" align="center">
 			<h1>The Lives of Others</h1>
+		</div>
+		<div id="mainNav">
+			<ul>
+				<li><a href="#판매도서리스트">판매도서</a></li>
+				<li><a href="#qna리스트">Q &amp; A</a></li>
+				<%
+					if(sessionMemberId != null){
+				%>
+						<li><a href="<%= request.getContextPath() %>/user/userLoginForm.jsp">주문 내역</a></li>
+				<%
+					} else{
+				%>
+						<li><a href="#주문리스트">주문 내역</a>
+				<%
+					}
+				%>
+			</ul>
 		</div>
 		<br><br>
 		<%

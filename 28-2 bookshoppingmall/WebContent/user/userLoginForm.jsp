@@ -6,7 +6,7 @@
 		<title>Sign In</title>
 	</head>
 	<body>
-		<h1>The Lives of Others</h1>
+		<h1>일반회원 로그인</h1>
 		<br><br>
 		<form action="<%= request.getContextPath() %>/user/userLoginAction.jsp" method="post">
 			<label>
@@ -22,7 +22,7 @@
 				
 			</label>
 			<br><br><br>
-			<button>Sign in</button>
+			<button>로그인</button>
 		</form>
 	</body>
 </html>

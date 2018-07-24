@@ -1,9 +1,62 @@
 package service;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 import service.*;
 
 public class PublisherDao {
+	
+	public ArrayList<Publisher> selectAllPublishers(Connection conn){
+		PreparedStatement pstmtSelectAllPublishers = null;
+		ResultSet rsSelectAllPublishers = null;
+		ArrayList<Publisher> arrayListSelectAllPublishers = new ArrayList<Publisher>();
+		Publisher publisher = null;
+		
+		
+		String sqlSelectAllPublishers = "SELECT publisher_no, publisher_name, publisher_website FROM publisher";
+		
+		try {
+			
+			pstmtSelectAllPublishers = conn.prepareStatement(sqlSelectAllPublishers);
+			
+			
+			rsSelectAllPublishers = pstmtSelectAllPublishers.executeQuery();
+			
+			
+			while(rsSelectAllPublishers.next()) {
+				
+				publisher = new Publisher();
+			
+				publisher.setPublisherNo(rsSelectAllPublishers.getInt("publisher_no"));
+				publisher.setPublisherName(rsSelectAllPublishers.getString("publisher_name"));
+				publisher.setPublisherWebsite(rsSelectAllPublishers.getString("publisher_website"));
+				
+				arrayListSelectAllPublishers.add(publisher);
+			}
+		} catch(SQLException e) {
+			System.out.println("DB와 관련된 예외가 발생하였습니다, insertPublisher main");
+			e.printStackTrace();
+		} finally {
+			if(pstmtSelectAllPublishers != null) {
+				try {
+					pstmtSelectAllPublishers.close();
+				} catch(SQLException e) {
+					System.out.println("DB와 관련된 예외가 발생하였습니다, insertPublisher close");
+					e.printStackTrace();
+				}
+			}
+			if(rsSelectAllPublishers != null) {
+				try {
+					rsSelectAllPublishers.close();
+				} catch(SQLException e) {
+					System.out.println("DB와 관련된 예외가 발생하였습니다, insertPublisher close");
+					e.printStackTrace();
+				}
+			}
+		}
+		return arrayListSelectAllPublishers;
+	}
 
 	public void insertPublisher(Connection conn,Publisher publisher) {
 		// 객체참조변수 선언
