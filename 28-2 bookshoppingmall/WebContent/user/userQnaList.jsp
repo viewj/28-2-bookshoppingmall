@@ -30,7 +30,7 @@
 			%>
 					<tr>
 						<td><%=qna.getQna_no()%> </td>
-						<td><a href="<%=request.getContextPath()%>/adminQnaDetails.jsp?qna_title=<%=qna.getQna_title()%>"><%=qna.getQna_title()%></a></td>
+						<td><a href="<%=request.getContextPath()%>/user/userQnaDetails.jsp?qna_no=<%=qna.getQna_no()%>"><%=qna.getQna_title()%></a></td>
 						<% 
 							int memberNo = qna.getMember_no();
 							MemberService memberService = new MemberService();
@@ -46,4 +46,6 @@
 		</table>
 
 	</body>
-</html>l>
+</html>
+
+

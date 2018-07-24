@@ -50,16 +50,16 @@ public class QnaService {
 		return resultOfAddQna;
 	}
 	
-	public Qna selectForUpdateQna(Qna qna) {
+	public Qna selectForUpdateQna(int qnaNo) {
 		
 		Connection conn = null;
-				
+		Qna qna = null;
 		try {
 			conn = DButil.connectDB();
 			
 			QnaDao qnaDao = new QnaDao();
 			
-			qnaDao.insertQna(conn, qna);
+			qna = qnaDao.selectForUpdateQna(conn, qnaNo);
 			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -179,6 +179,37 @@ public class QnaService {
 			}
 		}
 		return arrayListQna;
+	}
+	
+	public Qna userQnaListDetails(int qnaNo) {
+		Connection conn = null;
+		Qna qna = null;
+		try {
+			conn = DButil.connectDB();
+			
+			QnaDao qnaDao = new QnaDao();
+			qna = qnaDao.selectUserQnaList(conn, qnaNo);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException sqlException) {	
+				sqlException.printStackTrace();
+			} finally {
+				if(conn!=null) {
+					try {
+						conn.close();
+					} catch (SQLException e2) {
+						System.out.println("conn 객체 종료 중 예외");
+						e2.printStackTrace();
+					}
+				}
+				System.out.println("End of QnaService/deleteQna()");
+			}
+		}
+		return qna;
+		
 	}
 }
 

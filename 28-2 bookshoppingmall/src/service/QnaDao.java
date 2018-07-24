@@ -40,26 +40,28 @@ public class QnaDao {
 	}
 	
 	// qna테이블을 수정하기 위한 정보출력
-	public Qna selectForUpdateQna(Connection conn, Qna qna) {
+	public Qna selectForUpdateQna(Connection conn, int qnaNo) {
 		// 객체참조변수 선언
 		PreparedStatement pstmtSelectForUpdateQna = null;
 		ResultSet rsSelectForUpdateQna = null; 
+		Qna qna = new Qna();
 		String sqlSelectForUpdateQna = "SELECT qna_no, member_no, qna_title, qna_content, qna_date FROM qna WHERE qna_no=?";
 		
 		try {
 			pstmtSelectForUpdateQna = conn.prepareStatement(sqlSelectForUpdateQna);
 			// 쿼리문의 ?자리에 들어갈 값들을 넣어준다.
-			pstmtSelectForUpdateQna.setInt(1, qna.getQna_no());
+			pstmtSelectForUpdateQna.setInt(1, qnaNo);
 			
 			// 실행 결과값을 변수에 담는다.
 			rsSelectForUpdateQna = pstmtSelectForUpdateQna.executeQuery();
 			
 			// 해당 하는 컬럼의 값들을 넣어준다.
 			if (rsSelectForUpdateQna.next()) {
-				qna.setMember_no(Integer.parseInt("member_no"));
-				qna.setQna_title("qna_title");
-				qna.setQna_content("qna_content");
-				qna.setQna_date("qna_date");
+				qna.setMember_no(rsSelectForUpdateQna.getInt("member_no"));
+				qna.setQna_title(rsSelectForUpdateQna.getString("qna_title"));
+				qna.setQna_content(rsSelectForUpdateQna.getString("qna_content"));
+				qna.setQna_date(rsSelectForUpdateQna.getString("qna_date"));
+				qna.setQna_no(qnaNo);
 			}
 			
 		} catch (SQLException e) {
@@ -204,5 +206,35 @@ public class QnaDao {
 		return ArrayListQna;
 		
 	}
+	
+	public Qna selectUserQnaList(Connection conn, int qnaNo) {
+		PreparedStatement pstmtSelectUserQnaList = null;
+		ResultSet rsSelectUserQnaList = null;
+		Qna qna = new Qna();
+		String sqlSelectUserQnaList = "SELECT qna_content, qna_title, qna_date, member_no FROM qna where qna_no=?";
+		
+		try {
+			pstmtSelectUserQnaList = conn.prepareStatement(sqlSelectUserQnaList);
+		
+			pstmtSelectUserQnaList.setInt(1, qnaNo);
+			
+			rsSelectUserQnaList = pstmtSelectUserQnaList.executeQuery();
+			
+			if(rsSelectUserQnaList.next()) {
+				qna.setMember_no(rsSelectUserQnaList.getInt("member_no"));
+				qna.setQna_title(rsSelectUserQnaList.getString("qna_title"));
+				qna.setQna_date(rsSelectUserQnaList.getString("qna_date"));
+				qna.setQna_content(rsSelectUserQnaList.getString("qna_content"));
+				qna.setQna_no(qnaNo);
+			}
+		} catch (SQLException e) {
+			System.out.println("pstmtSelectAllQnas 객체 종료 중 예외 발생");
+			e.printStackTrace();
+		}
+		return qna;
+		
+	}
+	
+	
 }
 
