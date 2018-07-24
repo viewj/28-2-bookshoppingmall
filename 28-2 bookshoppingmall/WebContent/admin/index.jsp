@@ -36,17 +36,37 @@
 		<div id="mainTitle" align="center">
 			<h1>The Lives of Others</h1>
 		</div>
+		
+		<%
+			if (sessionAdminId == null) {
+		%>
+			<div id="mainNav">
+			<ul>
+				<li><a href="<%= request.getContextPath() %>/admin/adminLoginForm.jsp">도서코드 관리</a></li>
+				<li><a href="<%= request.getContextPath() %>/admin/adminLoginForm.jsp">출판사 관리</a></li>
+				<li><a href="<%= request.getContextPath() %>/admin/adminLoginForm.jsp">판매도서 관리</a></li>
+				<li><a href="<%= request.getContextPath() %>/admin/adminLoginForm.jsp">주문내역 관리</a></li>
+				<li><a href="<%= request.getContextPath() %>/admin/adminLoginForm.jsp">Q &amp; A</a></li>
+			</ul>
+		</div>
+		<br><br>
+		
+		<%
+			} else {
+		%>
+		
 		<div id="mainNav">
 			<ul>
-				<li><a href="<%= request.getContextPath()%>/admin/manager/bookcodeManager.jsp">도서코드 관리</a></li>
-				<li><a href="<%= request.getContextPath()%>/admin/manager/publisherManager.jsp">출판사 관리</a></li>
-				<li><a href="<%= request.getContextPath()%>/admin/book/bookManager.jsp">판매도서 관리</a></li>
+				<li><a href="<%= request.getContextPath() %>/admin/bookcodeManager.jsp">도서코드 관리</a></li>
+				<li><a href="<%= request.getContextPath() %>/admin/publisherManager.jsp">출판사 관리</a></li>
+				<li><a href="#판매도서관리페이지">판매도서 관리</a></li>
 				<li><a href="#주문내역관리페이지">주문내역 관리</a></li>
-				<li><a href="#qna리스트">Q &amp; A</a></li>
+				<li><a href="<%= request.getContextPath() %>/admin/adminQnaList.jsp">Q &amp; A</a></li>
 			</ul>
 		</div>
 		<br><br>
 		<%
+			}
 			System.out.println("");
 			System.out.println("End of admin/index.jsp");
 		%>

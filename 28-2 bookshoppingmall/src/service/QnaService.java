@@ -211,6 +211,40 @@ public class QnaService {
 		return qna;
 		
 	}
+	
+	public ArrayList<QnaForAdmin> selectAllQnasForAdmin() {
+		
+		Connection conn = null;
+		ArrayList<QnaForAdmin> arrayListQna = new ArrayList<QnaForAdmin>();
+		
+		try {
+			conn = DButil.connectDB();
+			
+			QnaDao qnaDao = new QnaDao();
+			arrayListQna = qnaDao.selectAllQnasForAdmin(conn);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException sqlException) {	
+				sqlException.printStackTrace();
+			} finally {
+				if(conn!=null) {
+					try {
+						conn.close();
+					} catch (SQLException e2) {
+						System.out.println("conn 객체 종료 중 예외");
+						e2.printStackTrace();
+					}
+				}
+				System.out.println("End of QnaService/selectAllQnasForAdmin()");
+			}
+		}
+		return arrayListQna;
+	}
+
 }
 
 

@@ -235,6 +235,58 @@ public class QnaDao {
 		
 	}
 	
-	
+	public ArrayList<QnaForAdmin> selectAllQnasForAdmin(Connection conn) {
+		
+		PreparedStatement pstmtSelectAllQnas = null;
+		ResultSet rsSelectAllQnas = null;
+		
+		String sqlSelectAllQnasForAdmin = "SELECT qna.qna_no, member.member_id, qna.qna_title, qna.qna_content, qna.qna_date FROM qna " + 
+											"JOIN member ON qna.member_no = member.member_no;";
+		ArrayList<QnaForAdmin> ArrayListQna = null;
+		QnaForAdmin qnaForAdmin = null;
+		
+		try {
+			pstmtSelectAllQnas = conn.prepareStatement(sqlSelectAllQnasForAdmin);
+			
+			rsSelectAllQnas = pstmtSelectAllQnas.executeQuery();
+			
+			// qna클래스 타입으로 선언한 ArrayListQna 리스트에 담기위한 객체생성
+			ArrayListQna = new ArrayList<QnaForAdmin>();
+			while(rsSelectAllQnas.next()) {
+				qnaForAdmin = new QnaForAdmin();
+				qnaForAdmin.setQna_no(rsSelectAllQnas.getInt("qna_no"));
+				qnaForAdmin.setMember_id(rsSelectAllQnas.getString("member_id"));
+				qnaForAdmin.setQna_title(rsSelectAllQnas.getString("qna_title"));
+				qnaForAdmin.setQna_content(rsSelectAllQnas.getString("qna_content"));
+				qnaForAdmin.setQna_date(rsSelectAllQnas.getString("qna_date"));
+				ArrayListQna.add(qnaForAdmin);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("DB에서 예외가 발생하였습니다, selectAllQnasForAdmin");
+			e.printStackTrace();
+		} finally {
+			if (rsSelectAllQnas != null) {
+				try {
+					rsSelectAllQnas.close();
+				} catch(SQLException sqlException) {
+					System.out.println("rsSelectAllQnas 객체 종료 중 예외 발생");
+					sqlException.printStackTrace();
+				}
+			}
+			
+			if (pstmtSelectAllQnas != null) {
+				try {
+					pstmtSelectAllQnas.close();
+				} catch(SQLException sqlException) {
+					System.out.println("pstmtSelectAllQnas 객체 종료 중 예외 발생");
+					sqlException.printStackTrace();
+				}
+			}
+		}
+		
+		return ArrayListQna;
+		
+	}
 }
 
