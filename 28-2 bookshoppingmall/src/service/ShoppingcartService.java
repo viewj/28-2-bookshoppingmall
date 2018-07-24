@@ -1,6 +1,8 @@
 package service;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 import service.*;
 
 public class ShoppingcartService {
@@ -68,5 +70,31 @@ public class ShoppingcartService {
 		}
 	}
 	
-	
+	public ArrayList<Shoppingcart> selectShoppingcart(int memberNo){
+		Connection conn = null;
+		ArrayList<Shoppingcart> arrayListSelectShoppingcart = null;
+		try {
+			conn = DButil.connectDB();
+			ShoppingcartDao shoppingcartDao = new ShoppingcartDao();
+			arrayListSelectShoppingcart = shoppingcartDao.selectShoppingcart(conn, memberNo);
+		} catch (Exception e){
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException sqlException) {	
+				sqlException.printStackTrace();
+			}
+		} finally {
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					System.out.println("conn 객체 종료 중 예외");
+					e.printStackTrace();
+				}
+			}
+			System.out.println("End of ShoppingcartService/selectShoppingcart()");
+		}
+		return arrayListSelectShoppingcart;
+	}
 }

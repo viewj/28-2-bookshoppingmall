@@ -186,4 +186,28 @@ public class BookService {
 			System.out.println(bookDetail + "<- bookService");
 		return bookDetail;
 	}
+	
+	public String selectBookName(int bookNo) {
+		Connection conn = null;
+		String bookName = null;
+		try {
+			conn = DButil.connectDB();
+			
+			BookDao bookDao = new BookDao();
+			bookName = bookDao.selectBookName(conn, bookNo);
+		} catch(Exception e) {
+			System.out.println("DB와 관련된 예외가 발생하였습니다, insertBookcode main");
+			e.printStackTrace();
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch(SQLException e) {
+					System.out.println("DB와 관련된 예외가 발생하였습니다, insertBookcode close");
+					e.printStackTrace();
+				}
+			}
+		}
+		return bookName;
+	}
 }

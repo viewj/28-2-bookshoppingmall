@@ -319,4 +319,36 @@ public class BookDao {
 			}	
 		return bookDetail;
 	}
+	
+	public String selectBookName(Connection conn, int bookNo) {
+		PreparedStatement pstmtSelectBookName = null;
+		ResultSet rsSelectBookName = null;
+		String bookName = null;
+		String sqlSelectBookName = "SELECT book_name FROM book WHERE book_no=?";
+		try {
+			pstmtSelectBookName = conn.prepareStatement(sqlSelectBookName);
+		
+			pstmtSelectBookName.setInt(1, bookNo);
+			rsSelectBookName = pstmtSelectBookName.executeQuery();
+			
+			if(rsSelectBookName.next()) {
+				bookName = rsSelectBookName.getString("book_name");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return bookName;
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+

@@ -32,7 +32,7 @@
 			%>
 					안녕! <%= sessionMemberId %>  | 
 					<a href="<%= request.getContextPath() %>/user/userLogout.jsp">로그아웃</a> | 
-					<a href="#장바구니리스트">장바구니</a> | 
+					<a href="<%=request.getContextPath() %>/user/shoppingcartList.jsp">장바구니</a> | 
 					<a href="#내정보">내 정보</a>
 			<%
 				}
