@@ -95,7 +95,7 @@ public class QnaDao {
 	public void updateQna(Connection conn, Qna qna) {
 		//객체참조변수 선언
 		PreparedStatement pstmtUpdateQna = null;
-		String sqlUpdateQna = "UPDATE qna SET (member_no=?, qna_title=?, qna_content=?) WHERE qna_no=?";
+		String sqlUpdateQna = "UPDATE qna SET member_no=?, qna_title=?, qna_content=?,qna_date=now() WHERE qna_no=?";
 		
 		try {
 			pstmtUpdateQna = conn.prepareStatement(sqlUpdateQna);

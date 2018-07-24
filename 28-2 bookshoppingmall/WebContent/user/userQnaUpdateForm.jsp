@@ -19,7 +19,7 @@
 				Qna qna = qnaService.selectForUpdateQna(qnaNo);
 			%>
 				<tr>
-					<td>번호 : <%=qnaNo %></td>
+					<td>번호 : <input type="text" name="qnaNo" value="<%=qnaNo %>" readonly></td>
 				</tr>
 				<tr>
 					<td>이름 : <% 
@@ -27,7 +27,8 @@
 								MemberService memberService = new MemberService();
 								String memberName = memberService.selectMemberNameForQnaList(memberNo);
 							%> 
-							<%=memberName %>
+							<input tyep="text" value="<%=memberName %>" readonly>
+							<input type="hidden" name="memberNo" value="<%=qna.getMember_no() %>">
 					</td>
 				</tr>
 				<tr>
