@@ -5,7 +5,7 @@ import service.*;
 
 public class QnaCommentDao {
 	//QnaComment 클래스를 리턴 데이터 타입 지정. selectForUpdateQnaComment 메서드 선언. 매개변수로는 db연결을 위한 conn과 int 데이터 타입인 adminNo(session)과 qnaNo(외래키)을 선언.
-	public QnaComment selectForUpdateQnaComment(Connection conn, int adminNo, int qnaNo) {
+	public QnaComment selectForUpdateQnaComment(Connection conn, int sessionAdminNo, int qnaNo) {
 		//초기값 지정
 		PreparedStatement pstmtSelectForUpdateQnaComment = null;
 		ResultSet rsSelectForUpdateQnaComment = null;
@@ -19,7 +19,7 @@ public class QnaCommentDao {
 			pstmtSelectForUpdateQnaComment = conn.prepareStatement(sqlSelectForUpdateQnaComment);
 			//쿼리문의 ?에 값 입력.
 			pstmtSelectForUpdateQnaComment.setInt(1, qnaNo);
-			pstmtSelectForUpdateQnaComment.setInt(2, adminNo);
+			pstmtSelectForUpdateQnaComment.setInt(2, sessionAdminNo);
 			//쿼리 실행 정보를 ResultSet 객체참조 변수에 대입.
 			rsSelectForUpdateQnaComment = pstmtSelectForUpdateQnaComment.executeQuery();
 			//테이블 내에 생성된 데이터 값 추출.
