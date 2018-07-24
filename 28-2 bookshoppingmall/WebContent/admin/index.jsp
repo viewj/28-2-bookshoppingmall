@@ -36,6 +36,12 @@
 		<div id="mainTitle" align="center">
 			<h1>The Lives of Others</h1>
 		</div>
+		<div id="mainNav">
+			<ul>
+				<li>Bookcode Manager</li>
+				<li>Publisher Manager</li>
+			</ul>
+		</div>
 		<br><br>
 		<%
 			System.out.println("");

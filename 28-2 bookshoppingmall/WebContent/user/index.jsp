@@ -23,11 +23,17 @@
 			<%
 				if(sessionMemberId == null){
 			%>
-					<a href="<%= request.getContextPath() %>/user/userLoginForm.jsp">Sign in</a> | <a href="<%= request.getContextPath() %>/user/signUpForm.jsp">Sign Up</a> | Cart | My page 
+					<a href="<%= request.getContextPath() %>/user/userLoginForm.jsp">Sign in</a> | 
+					<a href="<%= request.getContextPath() %>/user/signUpForm.jsp">Sign Up</a> | 
+					Cart | 
+					My page 
 			<%
 				} else {
 			%>
-					Hello! <%= sessionMemberId %>  | <a href="<%= request.getContextPath() %>/user/userLogout.jsp">Sign out</a> | Cart | My page 
+					Hello! <%= sessionMemberId %>  | 
+					<a href="<%= request.getContextPath() %>/user/userLogout.jsp">Sign out</a> | 
+					Cart | 
+					My page 
 			<%
 				}
 			%>

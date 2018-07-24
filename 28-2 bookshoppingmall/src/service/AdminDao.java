@@ -123,7 +123,6 @@ public class AdminDao {
 		// admin_id값을 이용하여 레코드의 일부분을 가져올 수 있는 쿼리문
 		String sqlAdminGetVO = "SELECT admin_no, admin_name FROM admin WHERE admin_id=?";
 		// 리턴할 member클래스 선언
-		Admin returnAdmin = new Admin();
 		
 		try {
 			pstmtAdminGetVO = conn.prepareStatement(sqlAdminGetVO);
@@ -131,9 +130,9 @@ public class AdminDao {
 			rsAdminGetVO = pstmtAdminGetVO.executeQuery();
 			
 			if (rsAdminGetVO.next()) {
-				returnAdmin.setAdminNo(rsAdminGetVO.getInt("admin_no"));
-				returnAdmin.setAdminName(rsAdminGetVO.getString("admin_name"));
-				System.out.println("rsAdminGetVO에서 받은 admin_no값 : " + returnAdmin.getAdminNo());
+				admin.setAdminNo(rsAdminGetVO.getInt("admin_no"));
+				admin.setAdminName(rsAdminGetVO.getString("admin_name"));
+				System.out.println("rsAdminGetVO에서 받은 admin_no값 : " + admin.getAdminNo());
 			}
 		} catch (SQLException e) {
 			System.out.println("DB에서 예외가 발생하였습니다, adminGetVO");
@@ -157,7 +156,7 @@ public class AdminDao {
 			}
 		}
 		
-		return returnAdmin;
+		return admin;
 	}
 	
 	public ArrayList<Admin> selectAllAdmins(Connection conn) {
