@@ -17,7 +17,7 @@
 			Bookcode bookCode = new Bookcode();
 			BookcodeService bookCodeService = new BookcodeService();
 			BookService bookService = new BookService();
-			BookUpdate userInformation = new BookUpdate();
+			BookInformation userInformation = new BookInformation();
 			
 			//장르 option정보 출력하기 위해 Bookcode타입의 ArrayList클래스를 사용했습니다.
 			ArrayList<Bookcode> totalList = bookCodeService.getAllBookcodes();
@@ -29,7 +29,7 @@
 		<h2 align="center">책 등록 하기</h2>
 		<br><br>
 		<div>
-			<form action="../book/insertBookAction.jsp" method="post">
+			<form action="../book/updateBookAction.jsp" method="post">
 				<div>
 					장르 :&nbsp;&nbsp;
 					<select name="bookCodeNo">
@@ -52,6 +52,7 @@
 					</select>	
 				</div>
 				<div>
+					<input type="hidden" name="bookNo" value="<%=bookNo%>">
 					책 이름 :&nbsp;&nbsp;<input type="text" name="bookName" placeholder="Name..." value="<%=userInformation.getBookName()%>">
 				</div>
 				
@@ -84,12 +85,12 @@
 					<%
 						if(userInformation.getBookOut().equals("절판")) {
 							%>
-								<option value="<%= userInformation.getBookOut() %>" selected> <%= userInformation.getBookOut() %>
+								<option value="<%=userInformation.getBookOut()%>" selected> <%=userInformation.getBookOut()%></option>
 								<option>절판 아님</option>
 							<%
 						}else {
 							%>
-								<option value="<%= userInformation.getBookOut() %>" selected> <%= userInformation.getBookOut() %>
+								<option value="<%=userInformation.getBookOut()%>" selected> <%=userInformation.getBookOut()%></option>
 								<option>절판</option>
 							<%
 						}
@@ -99,6 +100,7 @@
 				
 				<div>
 					<input type="submit" value="등록">
+					<a href="./bookManager.jsp" >취소</a>
 				</div>
 			</form>
 		</div>

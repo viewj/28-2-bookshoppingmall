@@ -1,6 +1,6 @@
 package service;
 
-public class BookUpdate {
+public class BookInformation {
 
 	private int bookNo;
 	private int bookPrice;
@@ -11,6 +11,7 @@ public class BookUpdate {
 	private String bookName;
 	private String bookAuthor;
 	private String bookOut;
+	private String bookDate;
 	
 	public int getBookNo() {
 		return bookNo;
@@ -73,6 +74,12 @@ public class BookUpdate {
 	}
 	public void setBookOut(String bookOut) {
 		this.bookOut = bookOut;
+	}
+	public String getBookDate() {
+		return bookDate;
+	}
+	public void setBookDate(String bookDate) {
+		this.bookDate = bookDate;
 	}
 	
 }

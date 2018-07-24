@@ -1,19 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="service.*" %>
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="EUC-KR">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Bookcode Manager</title>
 	</head>
 	<body>
-		<h1>µµ¼­ÄÚµå °ü¸®</h1>
+		<h1>ë„ì„œì½”ë“œ ê´€ë¦¬</h1>
 		<br>
-		<form action="<%= request.getContextPath() %>/admin/addBookcodeAction.jsp" method="post">
+		<form action="<%= request.getContextPath() %>/admin/manager/addBookcodeAction.jsp" method="post">
 			<input type="text" name="bookcodeName">
 			<br><br>
-			<input type="submit" value="+ Ãß°¡">
+			<input type="submit" value="+ ì¶”ê°€">
 			<br><br>
 		</form>
 		
@@ -22,15 +22,15 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th>µµ¼­ ÄÚµå</th>
-						<th>µµ¼­ Àå¸£ ¸í</th>
+						<th>ë„ì„œ ì½”ë“œ</th>
+						<th>ë„ì„œ ì¥ë¥´ ëª…</th>
 					</tr>
 				</thead>
 				<tbody>
 					<%
-						ArrayList<Bookcode> arrayListOfBookcodes = new ArrayList<Bookcode>();
-						BookcodeService bookcodeService = new BookcodeService();
 						
+						BookcodeService bookcodeService = new BookcodeService();
+						ArrayList<Bookcode> arrayListOfBookcodes = bookcodeService.getAllBookcodes();
 						for(int i = 0; i < arrayListOfBookcodes.size(); i++){
 					%>
 							<tr>
@@ -44,7 +44,7 @@
 				</tbody>
 			</table>
 			<br>
-			<input type="submit" value="- »èÁ¦">
+			<input type="submit" value="- ì‚­ì œ">
 		</form>
 	</body>
 </html>

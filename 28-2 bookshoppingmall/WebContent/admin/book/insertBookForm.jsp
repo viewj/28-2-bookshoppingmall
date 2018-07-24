@@ -36,27 +36,33 @@
 						%>
 					</select>	
 				</div>
+				
 				<div>
 					책 이름 :&nbsp;&nbsp;<input type="text" name="bookName" placeholder="Name...">
 				</div>
 				<div>
 					저자 :&nbsp;&nbsp;<input type="text" name="bookAuthor" placeholder="auther...">
 				</div>
+				
 				<div>
 					출판사 :&nbsp;&nbsp;
 					<select name="publisherNo">
 						<option value="1">1</option>
 					</select>
 				</div>
+				
 				<div>
 					판매 금액 :&nbsp;&nbsp;<input type="text" name="bookPrice" placeholder="price...">
 				</div>
+				
 				<div>
 					적립 마일리지 :&nbsp;&nbsp;<input type="text" name="bookPoint" placeholder="point...">
 				</div>
+				
 				<div>
 					재고 수량 :&nbsp;&nbsp;<input type="text" name="bookAmount" placeholder="amount...">
 				</div>
+				
 				<div>
 					절판 :&nbsp;&nbsp;
 					<select name="bookOut">
@@ -64,8 +70,10 @@
 						<option>절판아님</option>
 					</select>
 				</div>
+				
 				<div>
 					<input type="submit" value="등록">
+					<a href="./bookManager.jsp" >취소</a>
 				</div>
 			</form>
 		</div>

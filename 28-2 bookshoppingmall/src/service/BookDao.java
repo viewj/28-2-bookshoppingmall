@@ -52,7 +52,7 @@ public class BookDao {
 
 
 	//책의 정보를 삭제하기 위한 메서드
-	public void deleteBook(Connection conn, Book book) {
+	public void deleteBook(Connection conn, int bookNo) {
 		//객체 선언하고 초기값 null 설정
 		PreparedStatement pstmtDeleteBook = null;
 		
@@ -64,7 +64,7 @@ public class BookDao {
 			pstmtDeleteBook = conn.prepareStatement(sqlDeleteBook);
 			
 			//DELETE를 위한 value값에 set해준다
-			pstmtDeleteBook.setInt(1, book.getBookNo());
+			pstmtDeleteBook.setInt(1, bookNo);
 			
 			//쿼리 실행
 			System.out.println("삭제된 book 레코드의 수 : " + pstmtDeleteBook.executeUpdate());
@@ -86,12 +86,12 @@ public class BookDao {
 	
 	
 	//책의 정보 수정을 위해 기존 정보를 SELECT하기 위한 메서드
-	public BookUpdate selectForUpdateBook(Connection conn, int bookNo) {
+	public BookInformation selectForUpdateBook(Connection conn, int bookNo) {
 		//객체 선언하고 초기값 null 설정
 		PreparedStatement pstmtSelectForUpdateBook = null;
 		ResultSet rsSelectForUpdateBook = null;
 		//Book클래스 데이터 타입으로 book객체 생성
-		BookUpdate bookUpdate = null;
+		BookInformation bookUpdate = null;
 		
 		//book테이블에 들어있는 bookcode_no값 과 publisher_no값을 해당테이블의 name값으로 가져오기 위한 JOIN문입니다.
 		String sqlSelectForUpdateBook = "SELECT book.book_no ,book.book_name ,book.book_author ,book.book_price ,book.book_point ,book.book_amount ,book.book_out ,bookcode.bookcode_name ,publisher.publisher_name "
@@ -110,7 +110,7 @@ public class BookDao {
 			//다음 값이 있다면
 			if(rsSelectForUpdateBook.next()) {
 				//생성자를 통해 Book클래스를 생성하고  주소값을 book객체에 대입
-				bookUpdate = new BookUpdate();
+				bookUpdate = new BookInformation();
 				//book객체에 대입된 주소값을 따라가 SELECT한 정보를 set해줌
 				bookUpdate.setBookNo(rsSelectForUpdateBook.getInt("book_no"));
 				bookUpdate.setBookPrice(rsSelectForUpdateBook.getInt("book_price"));
@@ -154,7 +154,7 @@ public class BookDao {
 		PreparedStatement pstmtUpdateBook = null;	
 		
 		//book테이블의 UPDATE쿼리문 작성
-		String sqlUpdateBook = "UPDATE book	SET bookcode_no=? book_name=? book_author=? book_price=? book_point=? book_amount=? book_out=? WHERE book_no=?";
+		String sqlUpdateBook = "UPDATE book SET bookcode_no=? ,publisher_no=? ,book_name=? ,book_author=? ,book_price=? ,book_point=? ,book_amount=? ,book_out=? WHERE book_no=?";
 		
 		try {
 			//conn클래스를 통해 메서드를 작성한 쿼리문으로 호출하고 객체에 대입
@@ -162,13 +162,14 @@ public class BookDao {
 			
 			//각 ?값에 순서대로 대입
 			pstmtUpdateBook.setInt(1, book.getBookCodeNo());
-			pstmtUpdateBook.setString(2, book.getBookName());
-			pstmtUpdateBook.setString(3, book.getBookAuthor());
-			pstmtUpdateBook.setInt(4, book.getBookPrice());
-			pstmtUpdateBook.setInt(5, book.getBookPoint());
-			pstmtUpdateBook.setInt(6, book.getBookAmount());
-			pstmtUpdateBook.setString(7, book.getBookOut());
-			pstmtUpdateBook.setInt(8, book.getBookNo());
+			pstmtUpdateBook.setInt(2, book.getPublisherNo());
+			pstmtUpdateBook.setString(3, book.getBookName());
+			pstmtUpdateBook.setString(4, book.getBookAuthor());
+			pstmtUpdateBook.setInt(5, book.getBookPrice());
+			pstmtUpdateBook.setInt(6, book.getBookPoint());
+			pstmtUpdateBook.setInt(7, book.getBookAmount());
+			pstmtUpdateBook.setString(8, book.getBookOut());
+			pstmtUpdateBook.setInt(9, book.getBookNo());
 			
 			//쿼리 실행
 			pstmtUpdateBook.executeUpdate();
@@ -191,16 +192,17 @@ public class BookDao {
 	
 	
 	//책의 리스트를 출력하기 위한 SELECTE 메서드
-	public ArrayList<BookAndPublisher> selectAllBooks(Connection conn, int bookNo) {
+	public ArrayList<BookInformation> selectAllBooks(Connection conn) {
 		//객체 선언하고 초기값 null 설정
 		PreparedStatement pstmtSelectAllBooks = null;
 		ResultSet rsSelectAllBook = null;
 		
 		//리스트를 리턴해줄 배열을 객체 선언
-		ArrayList<BookAndPublisher> arrayListBookAndPublisher = new ArrayList<BookAndPublisher>(); 
+		ArrayList<BookInformation> arrayListBookAndPublisher = new ArrayList<BookInformation>(); 
 		
 		//book테이블의 SELECT쿼리문 작성
-		String sqlSelectBook = "SELECT book_no, publisher_name, book_name, book_author, book_price, book_point, book_amount, book_out, book_date FROM book b INNER JOIN publisher p on b.publisher_no = p.publisher_no";
+		String sqlSelectBook = "SELECT book.book_no ,book.book_name ,book.book_author ,book.book_price ,book.book_point ,book.book_amount ,book.book_out ,left(book.book_date ,10) as book_date ,bookcode.bookcode_name ,publisher.publisher_name "
+					+"FROM book left JOIN bookcode ON book.bookcode_no = bookcode.bookcode_no left JOIN publisher ON book.publisher_no = publisher.publisher_no ORDER BY book_no DESC";
 		
 		try {
 			//conn클래스를 통해 메서드를 작성한 쿼리문으로 호출하고 객체에 대입
@@ -212,30 +214,21 @@ public class BookDao {
 			//리턴값이 있다면
 			while(rsSelectAllBook.next()) {
 				//생성자를 통해 Book클래스를 생성하고  주소값을 Book클래스 데이터 타입으로 생성된 book객체에 대입
-				Book book = new Book();
+				BookInformation bookInformation = new BookInformation();
 				//book객체에 대입된 주소값을 찾아가 set
-				book.setBookNo(rsSelectAllBook.getInt("book_no"));
-				book.setBookName(rsSelectAllBook.getString("book_name"));
-				book.setBookAuthor(rsSelectAllBook.getString("book_author"));
-				book.setBookPrice(rsSelectAllBook.getInt("book_price"));
-				book.setBookPoint(rsSelectAllBook.getInt("book_point"));
-				book.setBookAmount(rsSelectAllBook.getInt("book_amount"));
-				book.setBookOut(rsSelectAllBook.getString("book_out"));
-				book.setBookDate(rsSelectAllBook.getString("book_date"));
-				
-				//생성자를 통해 Publisher클래스를 생성하고 주소값을 Publisher클래스 데이터 타입으로 생성된 publisher객체에 대입
-				Publisher publisher = new Publisher();			
-				//publisher객체에 대입된 주소값을 찾아가 set
-				publisher.setPublisherName(rsSelectAllBook.getString("publisher_name"));
-				
-				//위와 마찬가지로 BookAndPublisher클래스 객체 생성 대입
-				BookAndPublisher bookAndPublisher = new BookAndPublisher();
-				//대입된 주소값을 찾아가 set
-				bookAndPublisher.setBook(book);
-				bookAndPublisher.setPublisher(publisher);
+				bookInformation.setBookNo(rsSelectAllBook.getInt("book_no"));
+				bookInformation.setBookPrice(rsSelectAllBook.getInt("book_price"));
+				bookInformation.setBookPoint(rsSelectAllBook.getInt("book_point"));
+				bookInformation.setBookAmount(rsSelectAllBook.getInt("book_amount"));
+				bookInformation.setBookOut(rsSelectAllBook.getString("book_out"));
+				bookInformation.setBookName(rsSelectAllBook.getString("book_name"));
+				bookInformation.setBookAuthor(rsSelectAllBook.getString("book_author"));
+				bookInformation.setBookDate(rsSelectAllBook.getString("book_date"));
+				bookInformation.setBookCodeName(rsSelectAllBook.getString("bookcode_name"));
+				bookInformation.setPublisherName(rsSelectAllBook.getString("publisher_name"));
 				
 				//배열에 저장
-				arrayListBookAndPublisher.add(bookAndPublisher);
+				arrayListBookAndPublisher.add(bookInformation);
 			}	
 		} catch(SQLException e) {
 			System.out.println("DB와 관련된 예외가 발생하였습니다, selectAllBooks main");
@@ -260,29 +253,4 @@ public class BookDao {
 		}		
 		return arrayListBookAndPublisher;
 	}
-	
-	public String selectForBookOut(Connection conn, Shoppingcart shoppingcart) {
-		PreparedStatement pstmtSelectForBookOut = null;
-		ResultSet rsSelectForBookOut = null;
-		int bookNo = shoppingcart.getBookNo();
-		String bookOutCheck = null;
-		String sqlSelectForBookOut = "SELECT book_out FROM book where book_no=?";
-		try {
-			pstmtSelectForBookOut = conn.prepareStatement(sqlSelectForBookOut);
-		
-			pstmtSelectForBookOut.setInt(1, bookNo);
-			
-			rsSelectForBookOut = pstmtSelectForBookOut.executeQuery();
-			
-			if(rsSelectForBookOut.next()) {
-				bookOutCheck = rsSelectForBookOut.getString("book_out");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return bookOutCheck;
-	}
-	
 }
-
-

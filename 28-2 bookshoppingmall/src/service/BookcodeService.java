@@ -6,12 +6,17 @@ import service.*;
 
 
 public class BookcodeService {
-	public void addBookcode(Bookcode bookcode) {
+	
+	//화면에서 입력한 값을 추가하는 메서드입니다.
+	public void addBookcode(String bookcodeName) {
 		Connection conn = null;
 		try {
 			conn = DButil.connectDB();
 			BookcodeDao bookcodeDao = new BookcodeDao();
-			bookcodeDao.insertBookcode(conn, bookcode);
+			
+			bookcodeDao.insertBookcode(conn, bookcodeName);
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

@@ -6,6 +6,8 @@ import service.*;
 import java.util.ArrayList;
 
 public class PublisherService {
+	
+	//츌판사 정보를 입력하기위한 메서드
 	public void addPublisher(Publisher publisher) {
 		Connection conn = null;
 		try {
