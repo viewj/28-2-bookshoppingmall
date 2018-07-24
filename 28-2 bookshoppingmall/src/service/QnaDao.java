@@ -95,15 +95,14 @@ public class QnaDao {
 	public void updateQna(Connection conn, Qna qna) {
 		//객체참조변수 선언
 		PreparedStatement pstmtUpdateQna = null;
-		String sqlUpdateQna = "UPDATE qna SET member_no=?, qna_title=?, qna_content=?,qna_date=now() WHERE qna_no=?";
+		String sqlUpdateQna = "UPDATE qna SET qna_title=?, qna_content=?,qna_date=now() WHERE qna_no=?";
 		
 		try {
 			pstmtUpdateQna = conn.prepareStatement(sqlUpdateQna);
 			// 쿼리문의 ?자리에 해당하는 값들을 넣어준다.
-			pstmtUpdateQna.setInt(1, qna.getMember_no());
-			pstmtUpdateQna.setString(2, qna.getQna_title());
-			pstmtUpdateQna.setString(3, qna.getQna_content());
-			pstmtUpdateQna.setInt(4, qna.getQna_no());
+			pstmtUpdateQna.setString(1, qna.getQna_title());
+			pstmtUpdateQna.setString(2, qna.getQna_content());
+			pstmtUpdateQna.setInt(3, qna.getQna_no());
 			
 			// 쿼리문이 제대로 실행되면 1, 아니면 0을 리턴하고 변수에 담는다.
 			int resultUpdate = pstmtUpdateQna.executeUpdate();
@@ -288,5 +287,6 @@ public class QnaDao {
 		return ArrayListQna;
 		
 	}
+	
 }
 
