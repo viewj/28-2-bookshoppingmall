@@ -17,7 +17,7 @@ public class AdminDao {
 			pstmtInsertAdmin.setString(3, admin.getAdminName());
 			
 			int resultInsert = pstmtInsertAdmin.executeUpdate();
-			System.out.println("admin 테이블에 삭제된 행 갯수 : " + resultInsert);
+			System.out.println("admin 테이블에 삽입된 행 갯수 : " + resultInsert);
 		} catch (SQLException e) {
 			System.out.println("DB에서 예외가 발생하였습니다, InsertAdmin");
 			e.printStackTrace();
@@ -116,14 +116,14 @@ public class AdminDao {
 		return result;
 	}
 	
-	public Member adminGetVO(Connection conn, Admin admin) {
+	public Admin adminGetVO(Connection conn, Admin admin) {
 		// 객체참조변수 선언
 		PreparedStatement pstmtAdminGetVO = null;
 		ResultSet rsAdminGetVO = null;
 		// admin_id값을 이용하여 레코드의 일부분을 가져올 수 있는 쿼리문
 		String sqlAdminGetVO = "SELECT admin_no, admin_name FROM admin WHERE admin_id=?";
 		// 리턴할 member클래스 선언
-		Member returnMember = new Member();
+		Admin returnAdmin = new Admin();
 		
 		try {
 			pstmtAdminGetVO = conn.prepareStatement(sqlAdminGetVO);
@@ -131,8 +131,9 @@ public class AdminDao {
 			rsAdminGetVO = pstmtAdminGetVO.executeQuery();
 			
 			if (rsAdminGetVO.next()) {
-				returnMember.setMemberNo(rsAdminGetVO.getInt("admin_no"));
-				returnMember.setMemberName(rsAdminGetVO.getString("admin_name"));
+				returnAdmin.setAdminNo(rsAdminGetVO.getInt("admin_no"));
+				returnAdmin.setAdminName(rsAdminGetVO.getString("admin_name"));
+				System.out.println("rsAdminGetVO에서 받은 admin_no값 : " + returnAdmin.getAdminNo());
 			}
 		} catch (SQLException e) {
 			System.out.println("DB에서 예외가 발생하였습니다, adminGetVO");
@@ -156,7 +157,7 @@ public class AdminDao {
 			}
 		}
 		
-		return returnMember;
+		return returnAdmin;
 	}
 	
 	public ArrayList<Admin> selectAllAdmins(Connection conn) {

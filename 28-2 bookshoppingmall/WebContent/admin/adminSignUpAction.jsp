@@ -29,7 +29,6 @@
 			System.out.println("adminId : " + admin.getAdminId());
 			System.out.println("adminPw : " + admin.getAdminPw());
 			System.out.println("adminName : " + admin.getAdminName());
-			System.out.println("adminDate : " + admin.getAdminDate());
 			
 			// 회원가입 메서드를 호출하고 그 리턴 값(true = 회원가입 성공, false = 실패) 에 따라 세션정보 대입 여부를 정함
 			// 회원가입이 성공하면 회원가입한 아이디로 바로 로그인되게 하기위함.

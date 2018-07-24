@@ -16,7 +16,7 @@
 			String sessionAdminId = (String)session.getAttribute("sessionAdminId");
 			
 			// 값 테스트
-			System.out.println("sessionMemberNo & sessionMemberId : " + sessionAdminNo + " & " + sessionAdminId);
+			System.out.println("sessionAdminNo & sessionAdminId : " + sessionAdminNo + " & " + sessionAdminId);
 		%>
 		
 		<div id="quickNav" align="right">

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -6,22 +6,20 @@
 		<title>Admin Login</title>
 	</head>
 	<body>
-		<%
-		%>
-		<h1>°ü¸®ÀÚ ·Î±×ÀÎ</h1>
+		<h1>ê´€ë¦¬ìž ë¡œê·¸ì¸</h1>
 		<br><br>
 		<form action="./adminLoginAction.jsp" method="post">
 			<label>
-				¾ÆÀÌµð<br><br>
+				ì•„ì´ë””<br><br>
 				<input type="text" id="adminId" name="adminId">
 			</label>
 			<br><br>
 			<label>
-				ºñ¹Ð¹øÈ£<br><br>
+				ë¹„ë°€ë²ˆí˜¸<br><br>
 				<input type="password" id="adminPw" name='adminPw'>
 			</label>
 			<br><br>
-			<button>·Î±×ÀÎ</button>
+			<button>ë¡œê·¸ì¸</button>
 		</form>
 	</body>
 </html>
