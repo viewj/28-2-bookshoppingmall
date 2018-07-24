@@ -53,6 +53,7 @@
 			</table>
 			<br>
 			<input type="submit" value="- 삭제">
+			<div><a href="./../index.jsp">메인으로</a></div>
 		</form>
 	</body>
 </html>

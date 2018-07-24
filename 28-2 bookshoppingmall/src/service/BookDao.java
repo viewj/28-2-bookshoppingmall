@@ -253,4 +253,70 @@ public class BookDao {
 		}		
 		return arrayListBookAndPublisher;
 	}
+	
+	//책 상세보기에 정보를 출력하기 위한 메서드입니다.
+	public BookDetail selectBookDetail(Connection conn ,int bookNo) {
+		
+			BookDetail bookDetail = null;
+			
+			PreparedStatement pstmtSelectBookDetail = null;
+			ResultSet rsSelectBookDetail = null;
+			
+			//JOIN쿼리문
+			String selectBookJoinQuery = "SELECT book.book_no , book.book_name ,book.book_author ,book.book_price ,book.book_point ,book.book_amount ,book.book_out ,bookcode.bookcode_name ,publisher.publisher_name ,publisher.publisher_website ,bookintro.bookintro_no ,bookintro.bookintro_content ,bookintro.bookintro_writer "
+						+"FROM book LEFT JOIN bookcode ON book.bookcode_no = bookcode.bookcode_no LEFT JOIN publisher ON book.publisher_no = publisher.publisher_no LEFT JOIN bookintro ON book.book_no = bookintro.book_no WHERE book.book_no=?";
+			try {
+				//conn클래스를 통해 메서드를 작성한 쿼리문으로 호출하고 객체에 대입
+				pstmtSelectBookDetail = conn.prepareStatement(selectBookJoinQuery);
+				
+				//쿼리문에 있는 ?값 설정입니다.
+				pstmtSelectBookDetail.setInt(1, bookNo);
+				
+				rsSelectBookDetail = pstmtSelectBookDetail.executeQuery();
+				
+				if(rsSelectBookDetail.next()) {
+					bookDetail = new BookDetail();
+					
+					bookDetail.setBookNo(rsSelectBookDetail.getInt("book_no"));
+					bookDetail.setBookName(rsSelectBookDetail.getString("book_Name"));
+					bookDetail.setBookAuthor(rsSelectBookDetail.getString("book_author"));
+					bookDetail.setBookPrice(rsSelectBookDetail.getInt("book_book_price"));
+					bookDetail.setBookPoint(rsSelectBookDetail.getInt("book_point"));
+					bookDetail.setBookAmount(rsSelectBookDetail.getInt("book_out"));
+					bookDetail.setBookOut(rsSelectBookDetail.getString("book_out"));
+					bookDetail.setBookcodeName(rsSelectBookDetail.getString("bookcode_name"));
+					bookDetail.setPublisherName(rsSelectBookDetail.getString("publisher_name"));
+					bookDetail.setPublisherWebsite(rsSelectBookDetail.getString("publisher_website"));
+					bookDetail.setBookintroNo(rsSelectBookDetail.getInt("bookintro_no"));
+					bookDetail.setBookintroContent(rsSelectBookDetail.getString("bookintro_content"));
+					bookDetail.setBookintroWriter(rsSelectBookDetail.getString("bookintro_writer"));
+				}
+				
+				System.out.println(bookDetail + "<-DaoDetail");
+			}catch(SQLException e) {
+				System.out.println("DB와 관련된 예외가 발생하였습니다, selectAllBooks main");
+				e.printStackTrace();
+				
+			}finally {
+				
+				if(rsSelectBookDetail != null) {
+					try {
+						rsSelectBookDetail.close();
+					} catch(SQLException e) {
+						System.out.println("rsSelectBookDetail close");
+						e.printStackTrace();
+					}
+				}
+				
+				if(pstmtSelectBookDetail != null) {
+					try {
+						pstmtSelectBookDetail.close();
+					} catch(SQLException e) {
+						System.out.println("pstmtSelectAllBooks close");
+						e.printStackTrace();
+					}
+				}
+			}	
+		return bookDetail;
+	}
 }

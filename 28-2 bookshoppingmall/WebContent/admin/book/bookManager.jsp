@@ -25,7 +25,7 @@
 						<th>번호</th>
 						<th>장르</th>
 						<th>출판사</th>
-						<th>책 이름</th>
+						<th><a href="">책 이름</a></th>
 						<th>작가</th>
 						<th>금액</th>
 						<th>마일리지</th>
@@ -61,7 +61,10 @@
 				</tbody>
 			</table>
 			
-			<div align="center"><a href="./insertBookForm.jsp" >등록</a></div>
+			<div align="center">
+				<a href="./insertBookForm.jsp">등록</a>
+				<a href="./../index.jsp">메인으로</a>
+			</div>
 		</div>
 	</body>
 </html>

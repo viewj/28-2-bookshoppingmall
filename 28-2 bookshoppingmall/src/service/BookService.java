@@ -171,4 +171,19 @@ public class BookService {
 			
 		return booktotalList;
 	}
+	
+	//상세보기 창에서 책의 정보를 얻기 위한 메서드입니다.
+	public BookDetail selectBookDatail(int BookNo) {
+		
+			Connection conn = null;
+			
+			// DButil클래스를 통해 드라이브 로딩및 연결 
+			conn = DButil.connectDB();
+			
+			BookDao bookDao = new BookDao();
+			
+			BookDetail bookDetail = bookDao.selectBookDetail(conn ,BookNo);
+			System.out.println(bookDetail + "<- bookService");
+		return bookDetail;
+	}
 }

@@ -43,7 +43,7 @@
 							<td><%=bookInformation.getBookNo()%></td>
 							<td><%=bookInformation.getBookCodeName()%></td>
 							<td><%=bookInformation.getPublisherName()%></td>
-							<td><%=bookInformation.getBookName()%></td>
+							<td><a href="./listBookDetail.jsp?bookNo=<%=bookInformation.getBookName()%>"><%=bookInformation.getBookName()%></a></td>
 							<td><%=bookInformation.getBookAuthor()%></td>
 							<td><%=bookInformation.getBookPrice()%></td>
 							<td><%=bookInformation.getBookPoint()%></td>

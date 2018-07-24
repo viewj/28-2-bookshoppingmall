@@ -14,13 +14,17 @@
 			String publisherName = request.getParameter("publisherName");
 			String publisherWebsite = request.getParameter("publisherWebsite");
 			
+			Publisher publisher = new Publisher();
+			
+			publisher.setPublisherName(publisherName);
+			publisher.setPublisherWebsite(publisherWebsite);
+			
 			PublisherService publisherService = new PublisherService();
 			BookcodeService bookcodeService = new BookcodeService();
 			
+			publisherService.addPublisher(publisher);
 			
-			bookcodeService.addBookcode();
-			
-			response.sendRedirect("./bookcodeManager.jsp");
+			response.sendRedirect("./publisherManager.jsp");
 		%>
 	</body>
 </html>
