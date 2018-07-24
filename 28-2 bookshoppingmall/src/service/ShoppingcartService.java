@@ -16,7 +16,7 @@ public class ShoppingcartService {
 			
 			BookDao bookDao = new BookDao();
 			
-			bookOut = bookDao.selectForBookOut(conn, shoppingcart);
+	
 			
 			
 			
