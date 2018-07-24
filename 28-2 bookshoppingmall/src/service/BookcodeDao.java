@@ -61,8 +61,8 @@ public class BookcodeDao {
 	}
 	
 	//void 리턴 타입. 매서드 insertBookcode를 선언하고 
-	//매개변수로는 Connection 클래스 데이터 타입인 conn과 Bookcode 클래스 데이터 타입인 bookcode를 선언.
-	public void insertBookcode(Connection conn, Bookcode bookcode) {
+	//매개변수로는 Connection 클래스 데이터 타입인 conn과 String 데이터 타입인 bookcodeName을 선언.
+	public void insertBookcode(Connection conn, String BookcodeName) {
 		//초기값 지정.
 		PreparedStatement pstmtInsertBookcode = null;
 		//insert 쿼리문이 들어갈 sqlInsertBookcode를 선언 및 쿼리문 대입.
@@ -72,7 +72,8 @@ public class BookcodeDao {
 			//PreparedStatement로 생성된 객체에 쿼리 실행을 위한 데이터와 쿼리문을 삽입.
 			pstmtInsertBookcode = conn.prepareStatement(sqlInsertBookcode);
 			//? 안의 값을 bookcode 클래스를 따라가 나온 bookcodeName값을 가져와 대입.
-			pstmtInsertBookcode.setString(1, bookcode.getBookcodeName());
+			pstmtInsertBookcode.setString(1, BookcodeName);
+			
 			//update하며 리턴된 int 타입을 출력. 즉, bookcode 테이블 내에 삽입된 레코드의 개수가 나온다
 			System.out.println("삽입된 bookcode 레코드의 수 : " + pstmtInsertBookcode.executeUpdate());
 			
