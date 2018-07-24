@@ -16,12 +16,12 @@
 			
 			bookTotalList = bookService.selectBook();
 		%>
-		<h2>책 리스트</h2>
-		<br><br>
-		<div>
+		<div align="center">
+			<h2>책 리스트</h2>
+			<br><br>
 			<table border="1">
 				<thead>
-					<tr align="center">
+					<tr>
 						<th>번호</th>
 						<th>장르</th>
 						<th>출판사</th>
@@ -43,7 +43,7 @@
 							<td><%=bookInformation.getBookNo()%></td>
 							<td><%=bookInformation.getBookCodeName()%></td>
 							<td><%=bookInformation.getPublisherName()%></td>
-							<td><a href="./listBookDetail.jsp?bookNo=<%=bookInformation.getBookName()%>"><%=bookInformation.getBookName()%></a></td>
+							<td><a href="./listBookDetail.jsp?bookNo=<%=bookInformation.getBookNo()%>"><%=bookInformation.getBookName()%></a></td>
 							<td><%=bookInformation.getBookAuthor()%></td>
 							<td><%=bookInformation.getBookPrice()%></td>
 							<td><%=bookInformation.getBookPoint()%></td>
@@ -56,6 +56,9 @@
 					%>
 				</tbody>
 			</table>
+			
+			<a>메인페이지로</a>
+			<a></a>
 		</div>
 	</body>
 </html>

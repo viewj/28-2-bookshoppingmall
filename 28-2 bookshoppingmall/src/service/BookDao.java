@@ -262,7 +262,7 @@ public class BookDao {
 			PreparedStatement pstmtSelectBookDetail = null;
 			ResultSet rsSelectBookDetail = null;
 			
-			//JOIN쿼리문
+			//상세정보를 얻기 위한 LEFT JOIN쿼리문
 			String selectBookJoinQuery = "SELECT book.book_no , book.book_name ,book.book_author ,book.book_price ,book.book_point ,book.book_amount ,book.book_out ,bookcode.bookcode_name ,publisher.publisher_name ,publisher.publisher_website ,bookintro.bookintro_no ,bookintro.bookintro_content ,bookintro.bookintro_writer "
 						+"FROM book LEFT JOIN bookcode ON book.bookcode_no = bookcode.bookcode_no LEFT JOIN publisher ON book.publisher_no = publisher.publisher_no LEFT JOIN bookintro ON book.book_no = bookintro.book_no WHERE book.book_no=?";
 			try {
@@ -278,28 +278,28 @@ public class BookDao {
 					bookDetail = new BookDetail();
 					
 					bookDetail.setBookNo(rsSelectBookDetail.getInt("book_no"));
-					bookDetail.setBookName(rsSelectBookDetail.getString("book_Name"));
-					bookDetail.setBookAuthor(rsSelectBookDetail.getString("book_author"));
-					bookDetail.setBookPrice(rsSelectBookDetail.getInt("book_book_price"));
+					bookDetail.setBookPrice(rsSelectBookDetail.getInt("book_price"));
 					bookDetail.setBookPoint(rsSelectBookDetail.getInt("book_point"));
-					bookDetail.setBookAmount(rsSelectBookDetail.getInt("book_out"));
+					bookDetail.setBookAmount(rsSelectBookDetail.getInt("book_amount"));	
+					bookDetail.setBookintroNo(rsSelectBookDetail.getInt("bookintro_no"));
+					bookDetail.setBookName(rsSelectBookDetail.getString("book_Name"));
 					bookDetail.setBookOut(rsSelectBookDetail.getString("book_out"));
+					bookDetail.setBookAuthor(rsSelectBookDetail.getString("book_author"));
 					bookDetail.setBookcodeName(rsSelectBookDetail.getString("bookcode_name"));
 					bookDetail.setPublisherName(rsSelectBookDetail.getString("publisher_name"));
 					bookDetail.setPublisherWebsite(rsSelectBookDetail.getString("publisher_website"));
-					bookDetail.setBookintroNo(rsSelectBookDetail.getInt("bookintro_no"));
 					bookDetail.setBookintroContent(rsSelectBookDetail.getString("bookintro_content"));
 					bookDetail.setBookintroWriter(rsSelectBookDetail.getString("bookintro_writer"));
 				}
 				
-				System.out.println(bookDetail + "<-DaoDetail");
 			}catch(SQLException e) {
-				System.out.println("DB와 관련된 예외가 발생하였습니다, selectAllBooks main");
+				System.out.println("DB와 관련된 예외가 발생하였습니다, selectBookDetail main");
 				e.printStackTrace();
 				
 			}finally {
 				
 				if(rsSelectBookDetail != null) {
+					
 					try {
 						rsSelectBookDetail.close();
 					} catch(SQLException e) {

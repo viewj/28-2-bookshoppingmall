@@ -32,7 +32,7 @@
 			%>
 					안녕! <%= sessionMemberId %>  | 
 					<a href="<%= request.getContextPath() %>/user/userLogout.jsp">로그아웃</a> | 
-					<a href="<%=request.getContextPath() %>/user/shoppingcartList.jsp">장바구니</a> | 
+					<a href="<%=request.getContextPath() %>/user/shoppingcart/shoppingcartList.jsp">장바구니</a> | 
 					<a href="#내정보">내 정보</a>
 			<%
 				}
@@ -53,7 +53,7 @@
 				<%
 					} else{
 				%>
-						<li><a href="#주문리스트">주문 내역</a>
+						<li><a href="<%= request.getContextPath() %>/user/userLoginForm.jsp">주문 내역</a>
 				<%
 					}
 				%>

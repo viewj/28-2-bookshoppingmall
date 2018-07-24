@@ -38,11 +38,11 @@
 			boolean insertCheck = bookService.addBook(book);
 			
 			if(insertCheck == true) {
-				response.sendRedirect("./../user/index.jsp");
+				response.sendRedirect("./bookManager.jsp");
 				System.out.println("등록 완료 되었습니다");
 				
 			}else {
-				response.sendRedirect("../inseertBookForm.jsp");
+				response.sendRedirect("./inseertBookForm.jsp");
 				System.out.println("등록 실패 되었습니다");
 			}
 		

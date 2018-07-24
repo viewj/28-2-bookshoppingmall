@@ -16,9 +16,9 @@
 			
 			bookTotalList = bookService.selectBook();
 		%>
-		<h2>책 리스트</h2>
-		<br><br>
-		<div>
+		<div align="center">
+			<h2>책 리스트</h2>
+			<br><br>
 			<table border="1">
 				<thead>
 					<tr>

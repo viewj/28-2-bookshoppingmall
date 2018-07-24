@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import service.*;
 
 public class ShoppingcartDao {
+	
 	//void 리턴 타입. insertShoppingcart 메서드 선언. 매개변수는  클래스 데이터 타입으로 conn과 shoppinigCart를 선언했다.
 	public void insertShoppingcart(Connection conn, Shoppingcart shoppingcart) {
 		//초기값.
@@ -41,12 +42,13 @@ public class ShoppingcartDao {
 			}
 		}
 	}
+	
 	//void리턴 타입. deleteShoppingcart 메서드 선언. 매개변수는 클래스 데이터 타입인 conn과 int 데이터 타입인 shoppingcartNo을 선언.
 	public void deleteShoppingcart(Connection conn, int shoppingcartNo) {
 		//초기값 지정.
 		PreparedStatement pstmtDeleteShoppingcart = null;
 		//쿼리 실행에 필요한 쿼리문을 String 변수인 sqlDeleteShoppingcart에 대입.
-		String sqlDeleteShoppingcart = "DELETE FORM shoppingcart where shoppingcart_no=?";
+		String sqlDeleteShoppingcart = "DELETE FORM shoppingcart WHERE shoppingcart_no=?";
 		
 		try {
 			//객체 참조변수 pstmtDeleteShoppingcart에 쿼리문과 db연결에 필요한 데이터를 특정 메서드를 이용해 삽입.
@@ -54,15 +56,20 @@ public class ShoppingcartDao {
 			pstmtDeleteShoppingcart.setInt(1, shoppingcartNo);
 			//쿼리 실행 및 결과 출력.
 			System.out.println("shoppingcart 테이블의 삭제된 레코드 수" + pstmtDeleteShoppingcart.executeUpdate());
+			
 		//예외 처리.
 		} catch(SQLException e) {
 			System.out.println("DB와 관련된 예외가 발생하였습니다, deleteShoppingcart main");
 			e.printStackTrace();
+			
 		//객체 종료.
 		} finally {
+			
 			if(pstmtDeleteShoppingcart != null) {
+				
 				try {
 					pstmtDeleteShoppingcart.close();
+					
 				} catch(SQLException e) {
 					System.out.println("DB와 관련된 예외가 발생하였습니다, deleteShoppingcart close");
 					e.printStackTrace();
@@ -71,17 +78,21 @@ public class ShoppingcartDao {
 		}
 			
 	}
+	
 	//ArrayList 리턴 타입. selectAllShoppingcart 메서드 선언. 매개변수로는 클래스 데이터 타입인 conn과 int 데이터 타입인 memberNo를 사용.
-	public ArrayList<Shoppingcart> selectShoppingcart(Connection conn, int memberNo) {
+	public ArrayList<ShoppingPurchaseList> selectShoppingcart(Connection conn, int memberNo) {
+		
 		//초기값 지정.
 		PreparedStatement pstmtSelectAllShoppingcart = null;
 		ResultSet rsSelectAllShoppingcart = null;
 		
+		ShoppingPurchaseList shoppingcart = null;
 		//ArrayList 클래스의 주소값을 할당한 객체 생성.
-		ArrayList<Shoppingcart> arrayListAllShoppingcart = new ArrayList<Shoppingcart>();
+		ArrayList<ShoppingPurchaseList> arrayListAllShoppingcart = new ArrayList<ShoppingPurchaseList>();
 		
-		//쿼리문 sql 변수에 대입.
-		String sqlSelectAllShoppingcart = "SELECT shoppingcart_no, book_no, member_no, shoppingcart_amount, shoppingcart_price, shoppingcart_date FROM shoppingcart where member_no=?";
+		//책의 이름을 얻기 위해 LEFT JOIN 쿼리를 사용
+		String sqlSelectAllShoppingcart = "SELECT shoppingcart.shoppingcart_no ,shoppingcart.member_no ,shoppingcart.shoppingcart_amount ,shoppingcart.shoppingcart_price ,LEFT(shoppingcart.shoppingcart_date ,10) AS shoppingcart_date ,book.book_name "
+			+"FROM shoppingcart LEFT JOIN book ON shoppingcart.book_no = book.book_no WHERE shoppingcart.member_no=? ORDER BY shoppingcart_no DESC";
 		
 		try {
 			pstmtSelectAllShoppingcart = conn.prepareStatement(sqlSelectAllShoppingcart);
@@ -92,25 +103,29 @@ public class ShoppingcartDao {
 			
 			//*쿼리문의 조건에 맞는 값이 끝날때까지 반복(테이블의 레코더를 가져온다)
 			while(rsSelectAllShoppingcart.next()) {
+				
 				//Shoppingcart 클래스의 새로운 객체 생성.
-				Shoppingcart shoppingcart = new Shoppingcart();
+				shoppingcart = new ShoppingPurchaseList();
 				
 				//테이블 내에 있는 값을 끄집어  shoppingcart 내부에 저장되어 있는 set메서드에 삽입.
 				shoppingcart.setShoppingcartNo(rsSelectAllShoppingcart.getInt("shoppingcart_no"));
-				shoppingcart.setBookNo(rsSelectAllShoppingcart.getInt("book_no"));
 				shoppingcart.setMemberNo(rsSelectAllShoppingcart.getInt("member_no"));
 				shoppingcart.setShoppingcartAmount(rsSelectAllShoppingcart.getInt("shoppingcart_amount"));
 				shoppingcart.setShoppingcartPrice(rsSelectAllShoppingcart.getInt("shoppingcart_price"));
+				shoppingcart.setBookName(rsSelectAllShoppingcart.getString("book_name"));
 				shoppingcart.setShoppingcartDate(rsSelectAllShoppingcart.getString("shoppingcart_date"));
 				
 				//* 위 반복이 끝나고 비로소 완성된 객체에  인덱스(숫자) 부여.
 				arrayListAllShoppingcart.add(shoppingcart);
 			}
+			
 		//예외처리.
 		} catch (SQLException e) {
 			System.out.println("DB와 관련된 예외가 발생하였습니다, selectAllShoppingcart close");
 			e.printStackTrace();
+			
 		} finally {
+			
 			if(pstmtSelectAllShoppingcart != null) {
 				try {
 					pstmtSelectAllShoppingcart.close();
@@ -119,6 +134,7 @@ public class ShoppingcartDao {
 					e.printStackTrace();
 				}
 			}
+			
 			if(rsSelectAllShoppingcart != null) {
 				try {
 					rsSelectAllShoppingcart.close();
@@ -131,6 +147,7 @@ public class ShoppingcartDao {
 		//그렇게 인덱스가 부여된 객체들을 리턴.
 		return arrayListAllShoppingcart;
 	}
+	
 	//리턴 타입 int. 즉, 변경된 amount에 따른 price의 총 가격이 리턴된다. 
 	//매개변수로는 클래스 데이터 타입인 conn과 update 페이지에서 셋팅된 객체인 shoppingcart를 선언한다.
 	public int AmountOfShoppingcart(Connection conn, Shoppingcart shoppingcart) {
