@@ -9,11 +9,7 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-	<%
-		String sessionAdminId = (String)session.getAttribute("sessionAdminId");
-		String sessionAdminNo = (String)session.getAttribute("sessionAdminNo");
-
-	%>
+	
 		<table border="1">
 			<tr>
 				<td>번호</td> 
@@ -30,7 +26,7 @@
 			%>
 					<tr>
 						<td><%=qna.getQna_no()%> </td>
-						<td><a href="<%=request.getContextPath()%>/user/userQnaDetails.jsp?qna_no=<%=qna.getQna_no()%>"><%=qna.getQna_title()%></a></td>
+						<td><a href="<%=request.getContextPath()%>/user/userQnaDetail.jsp?qna_no=<%=qna.getQna_no()%>"><%=qna.getQna_title()%></a></td>
 						<% 
 							int memberNo = qna.getMember_no();
 							MemberService memberService = new MemberService();
@@ -44,6 +40,7 @@
 				}
 			%>
 		</table>
+		<a href="<%=request.getContextPath() %>/user/userQnaInsertForm.jsp">질문하기</a>
 
 	</body>
 </html>

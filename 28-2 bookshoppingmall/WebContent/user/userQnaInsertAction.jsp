@@ -9,16 +9,16 @@
 	</head>
 	<body>
 	<%
-		request.setCharacterEncoding("utf-8");
-	
 		Qna qna = new Qna();
-		qna.setQna_no(Integer.parseInt(request.getParameter("qnaNo")));
-		qna.setQna_title(request.getParameter("reTitle"));
+		
 		qna.setMember_no(Integer.parseInt(request.getParameter("memberNo")));
-		qna.setQna_content(request.getParameter("reContent"));
+		qna.setQna_title(request.getParameter("qnaTitle"));
+		qna.setQna_content(request.getParameter("qnaContent"));
 		
 		QnaService qnaService = new QnaService();
-		qnaService.updateQna(qna);
+		
+		qnaService.addQna(qna);
+		
 		response.sendRedirect(request.getContextPath()+"/user/userQnaList.jsp");
 	%>
 	</body>
