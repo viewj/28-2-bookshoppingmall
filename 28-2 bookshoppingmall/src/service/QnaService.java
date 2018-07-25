@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class QnaService {
 
-	public boolean addQna(Qna qna) {
+	public boolean addQnaComment(Qna qna) {
 		
 		Connection conn = null; 
 		boolean resultOfAddQna = false;
@@ -22,7 +22,7 @@ public class QnaService {
 			QnaDao qnaDao = new QnaDao();
 			
 			//qnaDao클래스에 있는 메서드 실행
-			qnaDao.insertQna(conn, qna);
+			qnaDao.insertQnaComment(conn, qna);
 			
 			// 예외 없이 실행이 되었으면 커밋을 통해 my-sql에 반영
 			conn.commit();

@@ -7,10 +7,10 @@ import java.util.ArrayList;
 public class QnaDao {
 	
 	// Qna테이블에 정보 입력하는 메소드
-	public void insertQna(Connection conn, Qna qna) {
+	public void insertQnaComment(Connection conn, Qna qna) {
 		// 객체참조변수 선언
 		PreparedStatement pstmtInsertQna = null;
-		String sqlInsertQna = "INSERT INTO qna(member_no, qna_title, qna_content, qna_date) VALUES (?, ?, ?, now())";
+		String sqlInsertQna = "INSERT INTO qna_comment(qna_no, admin_no, qna_content, qna_date) VALUES (?, ?, ?, now())";
 		try {
 			pstmtInsertQna = conn.prepareStatement(sqlInsertQna);
 			
