@@ -8,37 +8,50 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-		<table>
-		<%
-			int qnaNo = Integer.parseInt(request.getParameter("qna_no"));
-			QnaService qnaService = new QnaService();
-			
-			Qna qna = qnaService.userQnaListDetails(qnaNo);
-		%>
-			<tr>
-				<td>번호 : <%=qna.getQna_no() %></td>
-			</tr>
-			<tr>
-				<td>이름 : <% 
-							int memberNo = qna.getMember_no();
-							MemberService memberService = new MemberService();
-							String memberName = memberService.selectMemberNameForQnaList(memberNo);
-						%> 
-						<%=memberName %>
-				</td>
-			</tr>
-			<tr>
-				<td>제목 : <%=qna.getQna_title() %></td>
-			</tr>
-			<tr>
-				<td>내용 : <%=qna.getQna_content() %></td>
-			</tr>
-			<tr>
-				<td>작성날짜 : <%=qna.getQna_date() %></td>
-			</tr>
-		</table>
-		<a href="<%=request.getContextPath() %>/user/userQnaUpdateForm.jsp?qna_no=<%=qna.getQna_no()%>">수정</a>
-		<a href="<%=request.getContextPath() %>/user/userQnaDelete.jsp?qna_no=<%=qna.getQna_no()%>">삭제</a>
-		<a href="<%=request.getContextPath() %>/user/userQnaList.jsp">목록</a>
+	
+			<table>
+			<%
+				int qnaNo = Integer.parseInt(request.getParameter("qna_no"));
+				QnaService qnaService = new QnaService();
+				
+				Qna qna = qnaService.userQnaListDetails(qnaNo);
+			%>
+				<tr>
+					<td>번호 : <%=qna.getQna_no() %></td>
+				</tr>
+				<tr>
+					<td>이름 : <% 
+								int memberNo = qna.getMember_no();
+								MemberService memberService = new MemberService();
+								String memberName = memberService.selectMemberNameForQnaList(memberNo);
+							%> 
+							<%=memberName %>
+					</td>
+				</tr>
+				<tr>
+					<td>제목 : <%=qna.getQna_title() %></td>
+				</tr>
+				<tr>
+					<td>내용 : <%=qna.getQna_content() %></td>
+				</tr>
+				<tr>
+					<td>작성날짜 : <%=qna.getQna_date() %></td>
+				</tr>
+			</table>
+			<%
+			Integer sessionMemberNo = (Integer)session.getAttribute("sessionMemberNo");
+			String name = (String)session.getAttribute("sessionMemberName");
+			if(sessionMemberNo != null && name.equals(memberName)){
+			%>
+				<a href="<%=request.getContextPath() %>/user/userQnaUpdateForm.jsp?qna_no=<%=qna.getQna_no()%>">수정</a>
+				<a href="<%=request.getContextPath() %>/user/userQnaDelete.jsp?qna_no=<%=qna.getQna_no()%>">삭제</a>
+				<a href="<%=request.getContextPath() %>/user/userQnaList.jsp">목록</a>
+			<%
+			}else{
+			%>
+				<a href="<%=request.getContextPath() %>/user/userQnaList.jsp">목록</a>
+			<%
+			}
+			%>
 	</body>
 </html>

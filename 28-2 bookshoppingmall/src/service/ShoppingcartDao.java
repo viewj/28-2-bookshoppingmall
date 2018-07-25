@@ -48,7 +48,7 @@ public class ShoppingcartDao {
 		//초기값 지정.
 		PreparedStatement pstmtDeleteShoppingcart = null;
 		//쿼리 실행에 필요한 쿼리문을 String 변수인 sqlDeleteShoppingcart에 대입.
-		String sqlDeleteShoppingcart = "DELETE FORM shoppingcart WHERE shoppingcart_no=?";
+		String sqlDeleteShoppingcart = "DELETE FROM shoppingcart WHERE shoppingcart_no=?";
 		
 		try {
 			//객체 참조변수 pstmtDeleteShoppingcart에 쿼리문과 db연결에 필요한 데이터를 특정 메서드를 이용해 삽입.

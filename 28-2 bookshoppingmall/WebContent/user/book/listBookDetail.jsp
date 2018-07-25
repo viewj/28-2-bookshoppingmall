@@ -34,16 +34,13 @@
 					<tbody>
 						<tr>
 							<td>작가 :<%=bookDetail.getBookAuthor()%></td>
-							<td><input type="hidden" name="bookAuthor" value="<%=bookDetail.getBookAuthor()%>"></td>
 							<td><input type="hidden" name="bookNo" value="<%=bookDetail.getBookNo()%>"></td>
 						</tr>
 						<tr>
 							<td>출판사 :<%=bookDetail.getPublisherName()%></td>
-							<td><input type="hidden" name="publisherName" value="<%=bookDetail.getPublisherName()%>"></td>
 						</tr>
 						<tr>
 							<td>장르 :<%=bookDetail.getBookcodeName()%></td>
-							<td><input type="hidden" name="bookcodeName" value="<%=bookDetail.getBookcodeName()%>"></td>
 						</tr>
 						<tr>
 							<td>가격 :<%=bookDetail.getBookPrice()%></td>
@@ -54,12 +51,13 @@
 							<td><input type="hidden" name="BookPoint" value="<%=bookDetail.getBookPoint()%>"></td>
 						</tr>
 						<tr>
-							<td>수량 :<%=bookDetail.getBookAmount()%></td>
-							<td><input type="hidden" name="BookAmount" value="<%=bookDetail.getBookAmount()%>"></td>
+							<td>현재 수량 :<%=bookDetail.getBookAmount()%></td>
+						</tr>
+						<tr>
+							<td>구매 수량 :<input type="number" name="BookAmount" max="<%=bookDetail.getBookAmount()%>"></td>
 						</tr>
 						<tr>
 							<td>절판 상황 :<%=bookDetail.getBookOut()%></td>
-							<td><input type="hidden" name="BookOut" value="<%=bookDetail.getBookOut()%>"></td>
 						</tr>
 					</tbody>
 				</table><br>

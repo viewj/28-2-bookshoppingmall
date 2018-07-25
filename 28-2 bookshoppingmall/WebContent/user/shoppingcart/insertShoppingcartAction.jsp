@@ -11,6 +11,11 @@
 		<%
 			request.setCharacterEncoding("UTF-8");
 			
+			Integer sessionMemberNo = (Integer)session.getAttribute("sessionMemberNo");
+			String sessionMemberId = (String)session.getAttribute("sessionMemberId");
+			String sessionMemberName = (String)session.getAttribute("sessionMemberName");
+			System.out.println(sessionMemberNo +"<- sessionMemberNo");
+			
 			//장바구니에 담을 상세정보값
 			int bookNo = Integer.parseInt(request.getParameter("bookNo"));
 			int shoppingAmount = Integer.parseInt(request.getParameter("BookAmount"));
@@ -20,9 +25,9 @@
 			Shoppingcart shoppingcart = new Shoppingcart();
 			
 			shoppingcart.setBookNo(bookNo);
+			shoppingcart.setMemberNo(sessionMemberNo);
 			shoppingcart.setShoppingcartAmount(shoppingAmount);
 			shoppingcart.setShoppingcartPrice(shoppingPrice);
-			shoppingcart.setMemberNo(1);
 			
 			//shoppingcartService게층을 통하여 DB입력 실행
 			ShoppingcartService shoppingcartService = new ShoppingcartService();

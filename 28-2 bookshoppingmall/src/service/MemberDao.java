@@ -131,7 +131,7 @@ public class MemberDao {
 		ResultSet rsMemberGetVO = null;
 		
 		// member_id값을 이용하여 레코드의 일부분을 가져올 수 있는 쿼리문
-		String sqlMemberGetVO = "SELECT member_no FROM member WHERE member_id=?";
+		String sqlMemberGetVO = "SELECT * FROM member WHERE member_id=?";
 		
 		try {
 			pstmtMemberGetVO = conn.prepareStatement(sqlMemberGetVO);
@@ -140,6 +140,8 @@ public class MemberDao {
 			
 			if (rsMemberGetVO.next()) {
 				member.setMemberNo(rsMemberGetVO.getInt("member_no"));
+				member.setMemberName(rsMemberGetVO.getString("member_name"));
+				member.setMemberPoint(rsMemberGetVO.getString("member_point"));
 			}
 		} catch (SQLException e) {
 			System.out.println("DB에서 예외가 발생하였습니다.");

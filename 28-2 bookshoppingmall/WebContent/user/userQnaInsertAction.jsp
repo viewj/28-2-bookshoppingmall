@@ -9,6 +9,7 @@
 	</head>
 	<body>
 	<%
+		request.setCharacterEncoding("utf-8");
 		Qna qna = new Qna();
 		
 		qna.setMember_no(Integer.parseInt(request.getParameter("memberNo")));
