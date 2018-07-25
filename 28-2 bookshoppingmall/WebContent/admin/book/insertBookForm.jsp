@@ -45,9 +45,22 @@
 				</div>
 				
 				<div>
-					출판사 :&nbsp;&nbsp;
+				출판사 :&nbsp;&nbsp;
 					<select name="publisherNo">
-						<option value="1">1</option>
+					
+					<%
+					Publisher publisher = new Publisher();
+					PublisherService publisherService = new PublisherService();
+					ArrayList<Publisher> arrayListPublisher =  publisherService.getAllPublishers();
+					
+					for(int i=0; i<arrayListPublisher.size(); i++){
+						publisher = arrayListPublisher.get(i);
+					%>
+						
+							<option value="<%=publisher.getPublisherNo()%>"><%=publisher.getPublisherName() %></option>
+					<%
+					}
+					%>	
 					</select>
 				</div>
 				
