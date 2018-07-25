@@ -80,7 +80,7 @@
 				}
 			%>
 		</table>
-		로그인을 해야 질문을 할수 있습니다!
+		로그인을 해주세요!
 		<a href="<%=request.getContextPath() %>/user/index.jsp">돌아가기</a>
 		<%
 		}
