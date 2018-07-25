@@ -1,6 +1,7 @@
 package service;
 
 public class QnaForAdmin {
+	
 	private int qna_no;
 	private String member_id;
 	private String qna_title;
