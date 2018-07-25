@@ -4,6 +4,40 @@ import java.sql.*;
 import service.*;
 
 public class QnaCommentDao {
+	
+	// Qna_comment테이블에 정보 입력하는 메소드
+		public void insertQnaComment(Connection conn, Qna qna) {
+			// 객체참조변수 선언
+			PreparedStatement pstmtInsertQna = null;
+			String sqlInsertQna = "INSERT INTO qna_comment(qna_no, admin_no, qna_content, qna_date) VALUES (?, ?, ?, now())";
+			try {
+				pstmtInsertQna = conn.prepareStatement(sqlInsertQna);
+				
+				// 쿼리문의 ?자리에 들어갈 값들을 넣어준다.
+				pstmtInsertQna.setInt(1, qna.getMember_no());
+				pstmtInsertQna.setString(2, qna.getQna_title());
+				pstmtInsertQna.setString(3, qna.getQna_content());
+				
+				// 쿼리문이 실행이 되면 수정된 행의 수가 리턴된다.
+				int resultInsert = pstmtInsertQna.executeUpdate();
+				System.out.println("qna 테이블에 추가된 행 갯수 : " + resultInsert);
+				
+			// 예외 발생 시 콘솔창에 해당 문자열 출력
+			} catch (SQLException e) {
+				System.out.println("DB에서 예외가 발생하였습니다, pstmtInsertQna");
+				e.printStackTrace();
+			} finally {
+				if (pstmtInsertQna != null) {
+					try {
+						pstmtInsertQna.close();
+					} catch(SQLException sqlException) {
+						System.out.println("pstmtInsertQna 객체 종료 중 예외 발생");
+						sqlException.printStackTrace();
+					}
+				}
+			}
+		}
+	
 	//QnaComment 클래스를 리턴 데이터 타입 지정. selectForUpdateQnaComment 메서드 선언. 매개변수로는 db연결을 위한 conn과 int 데이터 타입인 adminNo(session)과 qnaNo(외래키)을 선언.
 	public QnaComment selectForUpdateQnaComment(Connection conn, int sessionAdminNo, int qnaNo) {
 		//초기값 지정
