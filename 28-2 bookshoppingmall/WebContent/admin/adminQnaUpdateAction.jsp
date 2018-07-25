@@ -12,7 +12,7 @@
 			request.setCharacterEncoding("UTF-8");
 			
 			System.out.println("");
-			System.out.println("location : user/AdminQnaUpdateAction.jsp");
+			System.out.println("location : admin/AdminQnaUpdateAction.jsp");
 			
 			int qnaNo = Integer.parseInt(request.getParameter("qnaNo"));
 			String qnaTitle = request.getParameter("qnaTitle");
@@ -22,6 +22,10 @@
 			qna.setQna_no(qnaNo);
 			qna.setQna_title(qnaTitle);
 			qna.setQna_content(qnaContent);
+			
+			System.out.println(qna.getQna_no());
+			System.out.println(qna.getQna_title());
+			System.out.println(qna.getQna_content());
 			
 			QnaService qnaService = new QnaService();
 			qnaService.updateQna(qna);

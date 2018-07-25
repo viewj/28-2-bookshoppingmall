@@ -23,32 +23,46 @@
 			<%
 				if(sessionAdminId == null){
 			%>
-					<a href="<%= request.getContextPath() %>/admin/adminLoginForm.jsp">Sign in</a> | <a href="<%= request.getContextPath() %>/admin/adminSignUpForm.jsp">Sign Up</a> | Cart | My page 
+					<a href="<%= request.getContextPath() %>/admin/adminLoginForm.jsp">Sign in</a> | <a href="<%= request.getContextPath() %>/admin/adminSignUpForm.jsp">Sign Up</a> | Cart | My page
+					</div>
+					<br><br>
+					<div id="mainTitle" align="center">
+						<h1>The Lives of Others</h1>
+					</div>
+					<div id="mainNav">
+						<ul>
+							<li><a href="<%= request.getContextPath() %>/admin/adminLoginForm.jsp">도서코드 관리</a></li>
+							<li><a href="<%= request.getContextPath() %>/admin/adminLoginForm.jsp">출판사 관리</a></li>
+							<li><a href="<%= request.getContextPath() %>/admin/adminLoginForm.jsp">판매도서 관리</a></li>
+							<li><a href="<%= request.getContextPath() %>/admin/adminLoginForm.jsp">주문내역 관리</a></li>
+							<li><a href="<%= request.getContextPath() %>/admin/adminLoginForm.jsp">Q &amp; A</a></li>
+						</ul>
+					</div>
+					<br><br> 
 			<%
 				} else {
 			%>
-					Hello! <%= sessionAdminId %>  | <a href="<%= request.getContextPath() %>/admin/adminLogout.jsp">Sign out</a> | Cart | My page 
+					Hello! <%= sessionAdminId %>  | <a href="<%= request.getContextPath() %>/admin/adminLogout.jsp">Sign out</a> | Cart | My page
+					</div>
+					<br><br>
+					<div id="mainTitle" align="center">
+						<h1>The Lives of Others</h1>
+					</div>
+					<div id="mainNav">
+						<ul>
+							<li><a href="<%= request.getContextPath()%>/admin/manager/bookcodeManager.jsp">도서코드 관리</a></li>
+							<li><a href="<%= request.getContextPath()%>/admin/manager/publisherManager.jsp">출판사 관리</a></li>
+							<li><a href="<%= request.getContextPath()%>/admin/book/bookManager.jsp">판매도서 관리</a></li>
+							<li><a href="#주문내역관리페이지">주문내역 관리</a></li>
+							<li><a href="<%= request.getContextPath() %>/admin/adminQnaList.jsp">Q &amp; A</a></li>
+						</ul>
+					</div>
+					<br><br> 
 			<%
 				}
+			
+				System.out.println("");
+				System.out.println("End of admin/index.jsp");
 			%>
-		</div>
-		<br><br>
-		<div id="mainTitle" align="center">
-			<h1>The Lives of Others</h1>
-		</div>
-		<div id="mainNav">
-			<ul>
-				<li><a href="<%= request.getContextPath()%>/admin/manager/bookcodeManager.jsp">도서코드 관리</a></li>
-				<li><a href="<%= request.getContextPath()%>/admin/manager/publisherManager.jsp">출판사 관리</a></li>
-				<li><a href="<%= request.getContextPath()%>/admin/book/bookManager.jsp">판매도서 관리</a></li>
-				<li><a href="#주문내역관리페이지">주문내역 관리</a></li>
-				<li><a href="#qna리스트">Q &amp; A</a></li>
-			</ul>
-		</div>
-		<br><br>
-		<%
-			System.out.println("");
-			System.out.println("End of admin/index.jsp");
-		%>
 	</body>
 </html>

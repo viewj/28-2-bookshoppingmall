@@ -22,6 +22,7 @@ public class DButil {
 			System.out.println("DB와 관련된 예외가 발생하였습니다");
 			e.printStackTrace();
 		} finally {
+			System.out.println("");
 			System.out.println("End of DButil/connectDB");
 		}
 		return conn;			 

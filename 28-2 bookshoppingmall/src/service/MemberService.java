@@ -128,6 +128,39 @@ public class MemberService {
 			System.out.println("End of MemberService/memberGetVO()");
 		}
 	}
+	
+	public Member memberSelect(int memberNo) {
+		Connection conn = null;
+		Member member = null;
+		
+		System.out.println("");
+		System.out.println("location : MemberService/memberSelect()");
+		
+		try {
+			// connectDB 메서드를 통해 DB 연결
+			conn = DButil.connectDB();
+			
+			// memberDao 객체 생성
+			MemberDao memberDao = new MemberDao();
+			
+			// memberGetVO를 통해 세션에 필요한 정보들만 조회 후 VO의 데이터 영역에 대입.
+			member = memberDao.SelectMember(conn, memberNo);
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally {
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					System.out.println("conn 객체 종료 중 예외");
+					e.printStackTrace();
+				}
+			}
+			System.out.println("End of MemberService/memberSelect()");
+		}
+		return member;
+	}
+	
 	public String selectMemberNameForQnaList(int memberNo) {
 		Connection conn = DButil.connectDB();
 		

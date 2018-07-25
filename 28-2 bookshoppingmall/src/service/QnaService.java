@@ -59,7 +59,7 @@ public class QnaService {
 			
 			QnaDao qnaDao = new QnaDao();
 			
-			qna = qnaDao.selectForUpdateQna(conn, qnaNo);
+			qna = qnaDao.selectUserQnaList(conn, qnaNo);
 			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -76,6 +76,7 @@ public class QnaService {
 						e2.printStackTrace();
 					}
 				}
+				System.out.println("");
 				System.out.println("End of QnaService/selectForUpdateQna()");
 			}
 		}
@@ -95,7 +96,7 @@ public class QnaService {
 			qnaDao.updateQna(conn, qna);
 			conn.commit();
 			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			try {
 				conn.rollback();

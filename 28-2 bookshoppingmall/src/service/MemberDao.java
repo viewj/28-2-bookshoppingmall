@@ -222,7 +222,7 @@ public class MemberDao {
 		// 리턴해줄 멤버클래스 선언
 		Member returnMember = null;
 		// 원하는 부분의 레코드전체를 가져오는 쿼리문
-		String sqlSelectMember = "SELECT member_no, member_id, member_pw, member_name, member_addr, member_point, member_date WHERE member_no=?";
+		String sqlSelectMember = "SELECT member_no, member_id, member_pw, member_name, member_addr, member_point, member_date FROM member WHERE member_no=?";
 		
 		try {
 			pstmtSelectMember = conn.prepareStatement(sqlSelectMember);
