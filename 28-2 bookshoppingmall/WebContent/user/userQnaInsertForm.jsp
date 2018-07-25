@@ -15,7 +15,7 @@
 					<td>제목 : <input type="text" name="qnaTitle"></td>
 				</tr>
 				<tr>
-					<td>내용 : <textarea name="qnaContent"></textarea><input type="hidden" name="memberNo"></td>
+					<td>내용 : <textarea name="qnaContent"></textarea><input type="hidden" name="memberNo" value="<%=sessionMemberNo%>"></td>
 				</tr>
 				<tr><td><input type="submit" value="완료"></td></tr>
 			</table>

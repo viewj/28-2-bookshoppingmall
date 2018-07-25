@@ -45,7 +45,7 @@
 		<div id="mainNav">
 			<ul>
 				<li><a href="<%=request.getContextPath()%>/user/book/bookList.jsp">판매도서</a></li>
-				<li><a href="#qna리스트">Q &amp; A</a></li>
+				<li><a href="<%=request.getContextPath()%>/user/userQnaList.jsp">Q &amp; A</a></li>
 				<%
 					if(sessionMemberId != null){
 				%>
