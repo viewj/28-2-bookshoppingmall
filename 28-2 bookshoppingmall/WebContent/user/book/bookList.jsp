@@ -10,6 +10,9 @@
 	</head>
 	<body>
 		<%
+			Integer sessionMemberNo = (Integer)session.getAttribute("sessionMemberNo");
+			String sessionMemberId = (String)session.getAttribute("sessionMemberId");
+			
 			BookService bookService = new BookService();
 			BookInformation bookInformation = new BookInformation();
 			ArrayList<BookInformation> bookTotalList = new ArrayList<BookInformation>();

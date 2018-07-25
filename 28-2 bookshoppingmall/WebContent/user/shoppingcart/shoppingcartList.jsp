@@ -10,6 +10,7 @@
 	<body>
 	<%
 		Integer sessionMemberNo = (Integer)session.getAttribute("sessionMemberNo");
+		String sessionMemberId = (String)session.getAttribute("sessionMemberId");
 		
 		ShoppingPurchaseList purchaseList = new ShoppingPurchaseList();
 		ArrayList<ShoppingPurchaseList> userPurchaseList = new ArrayList<ShoppingPurchaseList>();
@@ -19,38 +20,39 @@
 	%>
 	<div align="center">
 		<h3>장바구니</h3>
-		<table border="1">
-			<thead>
-				<tr>
-					<th>도서명</th>
-					<th>판매가</th>
-					<th>수량</th>
-					<th>합계</th>
-					<th>장바구니에 담은 날짜</th>
-					<th>바로 주문</th>
-					<th>삭제</th>
-				</tr>
-			</thead>
-			<%
-				for(int i=0; i<userPurchaseList.size(); i++) {
-					purchaseList = userPurchaseList.get(i);
-			%>
-					<tbody>
-						<tr>
-							<td><%=purchaseList.getBookName()%></td>
-							<td><%=purchaseList.getShoppingcartPrice()%></td>
-							<td><%=purchaseList.getShoppingcartAmount()%></td>
-							<td><%=purchaseList.getShoppingcartPrice()*purchaseList.getShoppingcartAmount()%></td>
-							<td><%=purchaseList.getShoppingcartDate()%></td>
-							<td><input type="submit" value="주문하기"></td>
-							<td><a href="./deleteShoppingcartAction.jsp?shoppingcartNo=<%=purchaseList.getShoppingcartNo()%>">삭제하기</a></td>
-						</tr>
-			<%
-				}
-			%>
-			</tbody>
-		</table><br>
-		
+		<form action="./../orders/insertOrdersForm.jsp" method="post">
+			<table border="1">
+				<thead>
+					<tr>
+						<th>도서명</th>
+						<th>판매가</th>
+						<th>수량</th>
+						<th>합계</th>
+						<th>장바구니에 담은 날짜</th>
+						<th>바로 주문</th>
+						<th>삭제</th>
+					</tr>
+				</thead>
+				<%
+					for(int i=0; i<userPurchaseList.size(); i++) {
+						purchaseList = userPurchaseList.get(i);
+				%>
+						<tbody>
+							<tr>
+								<td><input type="hidden" name="bookName"><a href="./../book/listBookDetail.jsp?bookNo=<%=purchaseList.getMemberNo()%>"><%=purchaseList.getBookName()%></a></td>
+								<td><%=purchaseList.getShoppingcartPrice()%></td>
+								<td><input type="number" name="totalAmount" value="<%=purchaseList.getShoppingcartAmount()%>"></td>
+								<td><input type="hidden" name="totalPrice"><%=purchaseList.getShoppingcartPrice()*purchaseList.getShoppingcartAmount()%></td>
+								<td><%=purchaseList.getShoppingcartDate()%></td>
+								<td><input type="submit" value="주문하기"></td>
+								<td><a href="./deleteShoppingcartAction.jsp?shoppingcartNo=<%=purchaseList.getShoppingcartNo()%>">삭제하기</a></td>
+							</tr>
+				<%
+					}
+				%>
+				</tbody>
+			</table><br>
+		</form>
 		<a href="../book/bookList.jsp">쇼핑 계속하기</a>
 	</div>
 	</body>

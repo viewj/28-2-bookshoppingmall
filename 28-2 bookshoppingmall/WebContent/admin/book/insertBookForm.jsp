@@ -18,9 +18,9 @@
 			ArrayList<Bookcode> totalList = bookCodeService.getAllBookcodes();
 			
 		%>
-		<h2 align="center">책 등록 하기</h2>
-		<br><br>
 		<div>
+			<h2 align="center">책 등록 하기</h2>
+			<br><br>
 			<form action="../book/insertBookAction.jsp" method="post">
 				<div>
 					장르 :&nbsp;&nbsp;
