@@ -36,6 +36,7 @@
 							<li><a href="<%= request.getContextPath() %>/admin/adminLoginForm.jsp">판매도서 관리</a></li>
 							<li><a href="<%= request.getContextPath() %>/admin/adminLoginForm.jsp">주문내역 관리</a></li>
 							<li><a href="<%= request.getContextPath() %>/admin/adminLoginForm.jsp">Q &amp; A</a></li>
+							<li><a href="<%= request.getContextPath() %>/admin/bookIntro/bookIntroInsert.jsp?">도서 소개글 쓰기</a></li>
 						</ul>
 					</div>
 					<br><br> 

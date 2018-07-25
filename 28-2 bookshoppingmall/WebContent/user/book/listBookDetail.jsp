@@ -63,7 +63,7 @@
 				<table>
 					<thead>
 						<tr>
-							<th>책 소계</th>
+							<th>책 소개</th>
 						</tr>
 					</thead>
 					<tbody>
