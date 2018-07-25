@@ -10,6 +10,11 @@
 	</head>
 	<body>
 		<%
+			request.setCharacterEncoding("UTF-8");
+		
+			Integer sessionMemberNo = (Integer)session.getAttribute("sessionMemberNo");
+			String sessionMemberId = (String)session.getAttribute("sessionMemberId");
+			
 			BookService bookService = new BookService();
 			BookInformation bookInformation = new BookInformation();
 			ArrayList<BookInformation> bookTotalList = new ArrayList<BookInformation>();
@@ -25,7 +30,7 @@
 						<th>번호</th>
 						<th>장르</th>
 						<th>출판사</th>
-						<th><a href="">책 이름</a></th>
+						<th>책 이름</th>
 						<th>작가</th>
 						<th>금액</th>
 						<th>마일리지</th>
@@ -45,7 +50,7 @@
 							<td><%=bookInformation.getBookNo()%></td>
 							<td><%=bookInformation.getBookCodeName()%></td>
 							<td><%=bookInformation.getPublisherName()%></td>
-							<td><%=bookInformation.getBookName()%></td>
+							<td><a href="./listBookDetail.jsp?bookNo=<%=bookInformation.getBookNo()%>"><%=bookInformation.getBookName()%></a></td>
 							<td><%=bookInformation.getBookAuthor()%></td>
 							<td><%=bookInformation.getBookPrice()%></td>
 							<td><%=bookInformation.getBookPoint()%></td>

@@ -9,6 +9,8 @@
 	</head>
 	<body>
 		<%
+			request.setCharacterEncoding("UTF-8");
+			
 			Integer sessionAdminNo = (Integer)session.getAttribute("sessionAdminNo");
 			String sessionAdminId = (String)session.getAttribute("sessionAdminId");
 			String sessionAdminName = (String)session.getAttribute("sessionAdminName");
