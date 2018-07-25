@@ -42,6 +42,9 @@
 				// 세션에 필요한 정보를 VO로부터 받아 세션영역에 대입.
 				session.setAttribute("sessionMemberNo", member.getMemberNo());
 				session.setAttribute("sessionMemberId", member.getMemberId());
+				session.setAttribute("sessionMemberName", member.getMemberName());
+				String name = (String)session.getAttribute("sessionMemberName");
+				System.out.println(name +"<=user name");
 				
 				response.sendRedirect(request.getContextPath() + "/user/index.jsp");
 			} else if(resultOfLogin.equals("비밀번호불일치")) {
