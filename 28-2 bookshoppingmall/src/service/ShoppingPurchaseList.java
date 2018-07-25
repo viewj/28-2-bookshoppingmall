@@ -1,9 +1,12 @@
 package service;
+import service.*;
 
 public class ShoppingPurchaseList {
 
 	private int shoppingcartNo;
 	private int memberNo;
+	private int bookNo;
+	private int bookPoint;
 	private int shoppingcartAmount;
 	private int shoppingcartPrice;
 	private String bookName;
@@ -20,6 +23,18 @@ public class ShoppingPurchaseList {
 	}
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
+	}
+	public int getBookNo() {
+		return bookNo;
+	}
+	public void setBookNo(int bookNo) {
+		this.bookNo = bookNo;
+	}
+	public int getBookPoint() {
+		return bookPoint;
+	}
+	public void setBookPoint(int bookPoint) {
+		this.bookPoint = bookPoint;
 	}
 	public int getShoppingcartAmount() {
 		return shoppingcartAmount;

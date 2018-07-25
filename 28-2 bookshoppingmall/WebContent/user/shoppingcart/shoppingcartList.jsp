@@ -28,6 +28,7 @@
 						<th>판매가</th>
 						<th>수량</th>
 						<th>합계</th>
+						<th>적립 마일리지</th>
 						<th>장바구니에 담은 날짜</th>
 						<th>바로 주문</th>
 						<th>삭제</th>
@@ -39,12 +40,13 @@
 				%>
 						<tbody>
 							<tr>
-								<td><input type="hidden" name="bookName"><a href="./../book/listBookDetail.jsp?bookNo=<%=purchaseList.getMemberNo()%>"><%=purchaseList.getBookName()%></a></td>
-								<td><%=purchaseList.getShoppingcartPrice()%></td>
+								<td><input type="hidden" name="bookName" value="<%=purchaseList.getBookName()%>"><a href="./../book/listBookDetail.jsp?bookNo=<%=purchaseList.getMemberNo()%>"><%=purchaseList.getBookName()%></a></td>
+								<td><input type="hidden" name="bookNo" value="<%=purchaseList.getBookNo()%>"><%=purchaseList.getShoppingcartPrice()%>원</td>
 								<td><input type="number" name="totalAmount" value="<%=purchaseList.getShoppingcartAmount()%>"></td>
-								<td><input type="hidden" name="totalPrice"><%=purchaseList.getShoppingcartPrice()*purchaseList.getShoppingcartAmount()%></td>
+								<td><input type="hidden" name="totalPrice" value="<%=purchaseList.getShoppingcartPrice() * purchaseList.getShoppingcartAmount()%>"><%=purchaseList.getShoppingcartPrice()*purchaseList.getShoppingcartAmount()%>원</td>
+								<td><input type="hidden" name="totalPoint" value="<%=purchaseList.getBookPoint() * purchaseList.getShoppingcartAmount()%>"><%=purchaseList.getBookPoint() * purchaseList.getShoppingcartAmount()%>원</td>
 								<td><%=purchaseList.getShoppingcartDate()%></td>
-								<td><input type="submit" value="주문하기"></td>
+								<td><input type="hidden" name="shoppingNo" value="<%=purchaseList.getShoppingcartNo()%>"><input type="submit" value="주문하기"></td>
 								<td><a href="./deleteShoppingcartAction.jsp?shoppingcartNo=<%=purchaseList.getShoppingcartNo()%>">삭제하기</a></td>
 							</tr>
 				<%

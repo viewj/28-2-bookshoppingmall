@@ -33,8 +33,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>작가 :<%=bookDetail.getBookAuthor()%></td>
-							<td><input type="hidden" name="bookNo" value="<%=bookDetail.getBookNo()%>"></td>
+							<td><input type="hidden" name="bookNo" value="<%=bookDetail.getBookNo()%>">작가 :<%=bookDetail.getBookAuthor()%></td>
 						</tr>
 						<tr>
 							<td>출판사 :<%=bookDetail.getPublisherName()%></td>
@@ -43,12 +42,10 @@
 							<td>장르 :<%=bookDetail.getBookcodeName()%></td>
 						</tr>
 						<tr>
-							<td>가격 :<%=bookDetail.getBookPrice()%></td>
-							<td><input type="hidden" name="bookPrice" value="<%=bookDetail.getBookPrice()%>"></td>
+							<td><input type="hidden" name="bookPrice" value="<%=bookDetail.getBookPrice()%>">가격 :<%=bookDetail.getBookPrice()%></td>
 						</tr>
 						<tr>
-							<td>마일리지 :<%=bookDetail.getBookPoint()%></td>
-							<td><input type="hidden" name="BookPoint" value="<%=bookDetail.getBookPoint()%>"></td>
+							<td><input type="hidden" name="BookPoint" value="<%=bookDetail.getBookPoint()%>">마일리지 :<%=bookDetail.getBookPoint()%></td>
 						</tr>
 						<tr>
 							<td>현재 수량 :<%=bookDetail.getBookAmount()%></td>

@@ -91,7 +91,7 @@ public class ShoppingcartDao {
 		ArrayList<ShoppingPurchaseList> arrayListAllShoppingcart = new ArrayList<ShoppingPurchaseList>();
 		
 		//책의 이름을 얻기 위해 LEFT JOIN 쿼리를 사용
-		String sqlSelectAllShoppingcart = "SELECT shoppingcart.shoppingcart_no ,shoppingcart.member_no ,shoppingcart.shoppingcart_amount ,shoppingcart.shoppingcart_price ,LEFT(shoppingcart.shoppingcart_date ,10) AS shoppingcart_date ,book.book_name "
+		String sqlSelectAllShoppingcart = "SELECT shoppingcart.shoppingcart_no ,shoppingcart.member_no ,shoppingcart.shoppingcart_amount ,shoppingcart.shoppingcart_price ,LEFT(shoppingcart.shoppingcart_date ,10) AS shoppingcart_date ,book.book_no ,book.book_name ,book.book_point "
 			+"FROM shoppingcart LEFT JOIN book ON shoppingcart.book_no = book.book_no WHERE shoppingcart.member_no=? ORDER BY shoppingcart_no DESC";
 		
 		try {
@@ -110,6 +110,8 @@ public class ShoppingcartDao {
 				//테이블 내에 있는 값을 끄집어  shoppingcart 내부에 저장되어 있는 set메서드에 삽입.
 				shoppingcart.setShoppingcartNo(rsSelectAllShoppingcart.getInt("shoppingcart_no"));
 				shoppingcart.setMemberNo(rsSelectAllShoppingcart.getInt("member_no"));
+				shoppingcart.setBookNo(rsSelectAllShoppingcart.getInt("book_no"));
+				shoppingcart.setBookPoint(rsSelectAllShoppingcart.getInt("book_point"));
 				shoppingcart.setShoppingcartAmount(rsSelectAllShoppingcart.getInt("shoppingcart_amount"));
 				shoppingcart.setShoppingcartPrice(rsSelectAllShoppingcart.getInt("shoppingcart_price"));
 				shoppingcart.setBookName(rsSelectAllShoppingcart.getString("book_name"));
@@ -190,25 +192,3 @@ public class ShoppingcartDao {
 		return rePrice;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
