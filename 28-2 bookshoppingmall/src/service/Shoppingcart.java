@@ -7,6 +7,7 @@ public class Shoppingcart {
 	private int shoppingcartAmount;
 	private int shoppingcartPrice;
 	private String shoppingcartDate;
+
 	
 	public int getShoppingcartNo() {
 		return shoppingcartNo;

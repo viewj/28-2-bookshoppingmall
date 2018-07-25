@@ -24,9 +24,7 @@
 				if(sessionMemberId == null){
 			%>
 					<a href="<%= request.getContextPath() %>/user/userLoginForm.jsp">로그인</a> | 
-					<a href="<%= request.getContextPath() %>/user/signUpForm.jsp">회원 가입</a> | 
-					<a href="<%= request.getContextPath() %>/user/userLoginForm.jsp">장바구니</a> | 
-					<a href="<%= request.getContextPath() %>/user/userLoginForm.jsp">내 정보</a> 
+					<a href="<%= request.getContextPath() %>/user/signUpForm.jsp">회원 가입</a>  
 			<%
 				} else {
 			%>

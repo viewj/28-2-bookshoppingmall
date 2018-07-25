@@ -91,7 +91,7 @@ public class ShoppingcartDao {
 		ArrayList<ShoppingPurchaseList> arrayListAllShoppingcart = new ArrayList<ShoppingPurchaseList>();
 		
 		//책의 이름을 얻기 위해 LEFT JOIN 쿼리를 사용
-		String sqlSelectAllShoppingcart = "SELECT shoppingcart.shoppingcart_no ,shoppingcart.member_no ,shoppingcart.shoppingcart_amount ,shoppingcart.shoppingcart_price ,LEFT(shoppingcart.shoppingcart_date ,10) AS shoppingcart_date ,book.book_no ,book.book_name ,book.book_point "
+		String sqlSelectAllShoppingcart = "SELECT shoppingcart.shoppingcart_no ,shoppingcart.member_no ,shoppingcart.shoppingcart_amount ,shoppingcart.shoppingcart_price ,LEFT(shoppingcart.shoppingcart_date ,10) AS shoppingcart_date ,book.book_no ,book.book_name ,book.book_point, book.book_amount "
 			+"FROM shoppingcart LEFT JOIN book ON shoppingcart.book_no = book.book_no WHERE shoppingcart.member_no=? ORDER BY shoppingcart_no DESC";
 		
 		try {
@@ -116,6 +116,7 @@ public class ShoppingcartDao {
 				shoppingcart.setShoppingcartPrice(rsSelectAllShoppingcart.getInt("shoppingcart_price"));
 				shoppingcart.setBookName(rsSelectAllShoppingcart.getString("book_name"));
 				shoppingcart.setShoppingcartDate(rsSelectAllShoppingcart.getString("shoppingcart_date"));
+				shoppingcart.setShoppingcartMaxAmount(rsSelectAllShoppingcart.getInt("book_amount"));
 				
 				//* 위 반복이 끝나고 비로소 완성된 객체에  인덱스(숫자) 부여.
 				arrayListAllShoppingcart.add(shoppingcart);

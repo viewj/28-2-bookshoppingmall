@@ -20,7 +20,7 @@
 			int bookNo = Integer.parseInt(request.getParameter("bookNo"));
 			int shoppingAmount = Integer.parseInt(request.getParameter("BookAmount"));
 			int shoppingPrice = Integer.parseInt(request.getParameter("bookPrice"));
-			
+			int maxAmount = Integer.parseInt(request.getParameter("maxAmount"));
 			//shoppingcart변수에 화면에서 가져온 값 대입
 			Shoppingcart shoppingcart = new Shoppingcart();
 			

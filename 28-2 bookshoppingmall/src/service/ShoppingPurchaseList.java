@@ -11,6 +11,7 @@ public class ShoppingPurchaseList {
 	private int shoppingcartPrice;
 	private String bookName;
 	private String shoppingcartDate;
+	private int shoppingcartMaxAmount;
 	
 	public int getShoppingcartNo() {
 		return shoppingcartNo;
@@ -59,6 +60,12 @@ public class ShoppingPurchaseList {
 	}
 	public void setShoppingcartDate(String shoppingcartDate) {
 		this.shoppingcartDate = shoppingcartDate;
+	}
+	public int getShoppingcartMaxAmount() {
+		return shoppingcartMaxAmount;
+	}
+	public void setShoppingcartMaxAmount(int shoppingcartMaxAmount) {
+		this.shoppingcartMaxAmount = shoppingcartMaxAmount;
 	}
 	
 }

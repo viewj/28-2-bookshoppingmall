@@ -51,7 +51,8 @@
 							<td>현재 수량 :<%=bookDetail.getBookAmount()%></td>
 						</tr>
 						<tr>
-							<td>구매 수량 :<input type="number" name="BookAmount" max="<%=bookDetail.getBookAmount()%>"></td>
+							<td>구매 수량 :<input type="number" name="BookAmount" max="<%=bookDetail.getBookAmount()%>"><input type="hidden" name="maxAmount" value="<%=bookDetail.getBookAmount()%>"></td>
+					
 						</tr>
 						<tr>
 							<td>절판 상황 :<%=bookDetail.getBookOut()%></td>
