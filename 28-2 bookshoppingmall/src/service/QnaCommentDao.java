@@ -1,22 +1,24 @@
 package service;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 import service.*;
 
 public class QnaCommentDao {
 	
 	// Qna_comment테이블에 정보 입력하는 메소드
-		public void insertQnaComment(Connection conn, Qna qna) {
+		public void insertQnaComment(Connection conn, QnaComment qnaComment) {
 			// 객체참조변수 선언
 			PreparedStatement pstmtInsertQna = null;
-			String sqlInsertQna = "INSERT INTO qna_comment(qna_no, admin_no, qna_content, qna_date) VALUES (?, ?, ?, now())";
+			String sqlInsertQna = "INSERT INTO qna_comment(qna_no, admin_no, qna_comment_content, qna_comment_date) VALUES (?, ?, ?, now())";
 			try {
 				pstmtInsertQna = conn.prepareStatement(sqlInsertQna);
 				
 				// 쿼리문의 ?자리에 들어갈 값들을 넣어준다.
-				pstmtInsertQna.setInt(1, qna.getMember_no());
-				pstmtInsertQna.setString(2, qna.getQna_title());
-				pstmtInsertQna.setString(3, qna.getQna_content());
+				pstmtInsertQna.setInt(1, qnaComment.getQnaNo());
+				pstmtInsertQna.setInt(2, qnaComment.getAdminNo());
+				pstmtInsertQna.setString(3, qnaComment.getQnaCommentContent());
 				
 				// 쿼리문이 실행이 되면 수정된 행의 수가 리턴된다.
 				int resultInsert = pstmtInsertQna.executeUpdate();
@@ -117,5 +119,37 @@ public class QnaCommentDao {
 				}
 			}
 		}
+	}
+	
+	public  ArrayList<QnaComment> selectQnaCommentList(Connection conn, int qnaNo) {
+		PreparedStatement pstmtSelectQnaCommentList = null;
+		ResultSet rsSelectQnaCommentList = null;
+		ArrayList<QnaComment> qnaCommentList = new ArrayList<QnaComment>();
+		QnaComment qnaComment = null;
+		
+		String sqlSelectUserQnaList = "SELECT qna_no, admin_no, qna_comment_content, qna_comment_date FROM qna_comment where qna_no=? ORDER BY qnacomment_no DESC";
+		
+		try {
+			pstmtSelectQnaCommentList = conn.prepareStatement(sqlSelectUserQnaList);
+		
+			pstmtSelectQnaCommentList.setInt(1, qnaNo);
+			
+			rsSelectQnaCommentList = pstmtSelectQnaCommentList.executeQuery();
+			
+			while(rsSelectQnaCommentList.next()) {
+				qnaComment = new QnaComment();
+				qnaComment.setQnaNo(rsSelectQnaCommentList.getInt("qna_no"));
+				qnaComment.setAdminNo(rsSelectQnaCommentList.getInt("admin_no"));
+				qnaComment.setQnaCommentContent(rsSelectQnaCommentList.getString("qna_comment_content"));
+				qnaComment.setQnaCommentDate(rsSelectQnaCommentList.getString("qna_date"));
+				qnaCommentList.add(qnaComment);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("pstmtSelectQnaCommentList 객체 종료 중 예외 발생");
+			e.printStackTrace();
+		}
+		return qnaCommentList;
+		
 	}
 }

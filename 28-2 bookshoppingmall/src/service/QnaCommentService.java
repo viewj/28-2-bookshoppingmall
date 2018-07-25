@@ -2,10 +2,11 @@ package service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class QnaCommentService {
 	
-	public boolean addQnaComment(Qna qna) {
+	public boolean addQnaComment(QnaComment qnaComment) {
 		
 		Connection conn = null; 
 		boolean resultOfAddQna = false;
@@ -20,8 +21,8 @@ public class QnaCommentService {
 			
 			QnaCommentDao qnaCommentDao = new QnaCommentDao();
 			
-			//qnaDao클래스에 있는 메서드 실행
-			qnaCommentDao.insertQnaComment(conn, qna);
+			//qnaCommentDao클래스에 있는 메서드 실행
+			qnaCommentDao.insertQnaComment(conn, qnaComment);
 			
 			// 예외 없이 실행이 되었으면 커밋을 통해 my-sql에 반영
 			conn.commit();
@@ -47,5 +48,37 @@ public class QnaCommentService {
 		}
 		
 		return resultOfAddQna;
+	}
+	
+	public ArrayList<QnaComment> selectAllQnaComments(int qnaNo) {
+		
+		Connection conn = null;
+		ArrayList<QnaComment> arrayListQnaComments = new ArrayList<QnaComment>();
+		
+		try {
+			conn = DButil.connectDB();
+			
+			QnaCommentDao qnaCommentDao = new QnaCommentDao();
+			arrayListQnaComments = qnaCommentDao.selectQnaCommentList(conn, qnaNo);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException sqlException) {	
+				sqlException.printStackTrace();
+			} finally {
+				if(conn!=null) {
+					try {
+						conn.close();
+					} catch (SQLException e2) {
+						System.out.println("conn 객체 종료 중 예외");
+						e2.printStackTrace();
+					}
+				}
+				System.out.println("End of QnaService/selectAllQnas()");
+			}
+		}
+		return  arrayListQnaComments;
 	}
 }

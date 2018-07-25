@@ -114,4 +114,74 @@ public class AdminService {
 			System.out.println("End of AdminService/adminGetVO()");
 		}
 	}
+	
+	public Admin selectAdmin(int adminNo) {
+		
+		Connection conn = null;
+		Admin admin = null;
+		try {
+			conn = DButil.connectDB();
+			
+			AdminDao adminDao = new AdminDao();
+			
+			admin = adminDao.SelectAdmin(conn, adminNo);
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException sqlException) {	
+				sqlException.printStackTrace();
+			} finally {
+				if(conn!=null) {
+					try {
+						conn.close();
+					} catch (SQLException e2) {
+						System.out.println("conn 객체 종료 중 예외");
+						e2.printStackTrace();
+					}
+				}
+				System.out.println("");
+				System.out.println("End of AdminService/selectAdmin()");
+			}
+		}
+		return admin;
+		
+	}
+	
+	public int selectAdminNo(String adminId) {
+		
+		Connection conn = null;
+		Admin admin = null;
+		int adminNo = 0;
+		try {
+			conn = DButil.connectDB();
+			
+			AdminDao adminDao = new AdminDao();
+			
+			admin = adminDao.SelectAdminNo(conn, adminId);
+			adminNo = admin.getAdminNo();
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				conn.rollback();
+			} catch (SQLException sqlException) {	
+				sqlException.printStackTrace();
+			} finally {
+				if(conn!=null) {
+					try {
+						conn.close();
+					} catch (SQLException e2) {
+						System.out.println("conn 객체 종료 중 예외");
+						e2.printStackTrace();
+					}
+				}
+				System.out.println("");
+				System.out.println("End of AdminService/selectAdminNo()");
+			}
+		}
+		return adminNo;
+		
+	}
 }

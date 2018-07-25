@@ -12,6 +12,14 @@
 			System.out.println("");
 			System.out.println("location : user/AdminQnaList.jsp");
 			
+			// 세션 정보 받아오기
+			Integer sessionAdminNo = (Integer)session.getAttribute("sessionAdminNo");
+			String sessionAdminId = (String)session.getAttribute("sessionAdminId");
+			
+			// 세션 정보 보내기
+			session.setAttribute("sessionAdminId", sessionAdminId);
+			session.setAttribute("sessionAdminNo", sessionAdminNo);
+			
 			QnaService qnaService = new QnaService();
 			ArrayList<QnaForAdmin> arrayListQna = qnaService.selectAllQnasForAdmin();
 			

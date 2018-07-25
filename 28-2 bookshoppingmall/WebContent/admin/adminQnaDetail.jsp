@@ -14,6 +14,14 @@
 			
 			request.setCharacterEncoding("UTF-8");
 			
+			// 세션 정보 받아오기
+			Integer sessionAdminNo = (Integer)session.getAttribute("sessionAdminNo");
+			String sessionAdminId = (String)session.getAttribute("sessionAdminId");
+			
+			// 세션 정보 보내기
+			session.setAttribute("sessionAdminId", sessionAdminId);
+			session.setAttribute("sessionAdminNo", sessionAdminNo);
+			
 			int qnaNo = Integer.parseInt(request.getParameter("qna_no"));
 						
 			QnaService qnaService = new QnaService();
@@ -31,9 +39,15 @@
 		<span><a href="<%=request.getContextPath()%>/admin/adminQnaUpdateForm.jsp?qna_no=<%=qnaNo%>">수정</a></span>
 		<span><a href="<%=request.getContextPath()%>/admin/adminQnaDelete.jsp?qna_no=<%=qnaNo%>">삭제</a></span>
 		<span><a href="<%=request.getContextPath()%>/admin/adminQnaList.jsp">목록</a></span>	<br><br>
-		<form action="<%=request.getContextPath()%>/admin/adminQnareplyAction.jsp">
-			<span><input type="text" style="width:200px; height:50px;"></span>
-			<span><input type="submit" value="답변하기"></span>
+		<form action="<%=request.getContextPath()%>/admin/adminQnaCommentAction.jsp">
+			<span><input type="text" style="width:200px; height:50px;" name="qnaCommentContent"></span>
+			<input type="hidden" name="qnaNo" value="<%=qna.getQna_no()%>">
+			<span><input type="submit" value="답변하기"></span> <br><br>
 		</form>
+		
+		<%
+			QnaCommentService qnaCommentService = new QnaCommentService();
+			qnaCommentService.selectAllQnaComments(qnaNo);
+		%>
 	</body>
 </html>

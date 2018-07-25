@@ -239,5 +239,38 @@ public class AdminDao {
 		return returnAdmin;
 		
 	}
-
+	
+	public Admin SelectAdminNo(Connection conn, String adminId) {
+		// 객체참조변수 선언
+		PreparedStatement pstmtSelectAdmin = null;
+		ResultSet rsSelectAdmin = null;
+		// 리턴해줄 멤버클래스 선언
+		Admin returnAdmin = null;
+		// 원하는 부분의 레코드전체를 가져오는 쿼리문
+		String sqlSelectAdmin = "SELECT admin_no, admin_id, admin_pw, admin_name, admin_date FROM admin WHERE admin_id=?";
+		
+		try {
+			pstmtSelectAdmin = conn.prepareStatement(sqlSelectAdmin);
+			pstmtSelectAdmin.setString(1, adminId);
+			rsSelectAdmin = pstmtSelectAdmin.executeQuery();
+			
+			// member_no는 primary key이기 때문에 하나밖에 존재하지않는다. 그렇기 때문에 while이 아닌 if를 사용한다.
+			if(rsSelectAdmin.next()) {
+				returnAdmin = new Admin();
+				// 쿼리문에서 나온 값을 member클래스 데이터타입으로 저장한다.
+				returnAdmin.setAdminNo((rsSelectAdmin.getInt("admin_no")));
+				returnAdmin.setAdminId((rsSelectAdmin.getString("admin_id")));
+				returnAdmin.setAdminPw((rsSelectAdmin.getString("admin_pw")));
+				returnAdmin.setAdminName((rsSelectAdmin.getString("admin_name")));
+				returnAdmin.setAdminDate((rsSelectAdmin.getString("admin_date")));
+			}
+		} catch (SQLException e) {
+			System.out.println("DB에서 예외가 발생하였습니다, SelectAdmin");
+			e.printStackTrace();
+		}
+		
+		return returnAdmin;
+		
+	}
+	
 }
