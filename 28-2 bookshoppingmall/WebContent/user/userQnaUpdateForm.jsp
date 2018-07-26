@@ -27,7 +27,7 @@
 								MemberService memberService = new MemberService();
 								String memberName = memberService.selectMemberNameForQnaList(memberNo);
 							%> 
-							<input tyep="text" value="<%=memberName %>" readonly>
+							<input type="text" value="<%=memberName %>" readonly>
 							<input type="hidden" name="memberNo" value="<%=qna.getMember_no() %>">
 					</td>
 				</tr>

@@ -60,7 +60,7 @@
 				</tbody>
 			</table>
 			
-			<a>메인페이지로</a>
+			<a href="./../index.jsp">메인페이지로</a>
 			<a></a>
 		</div>
 	</body>

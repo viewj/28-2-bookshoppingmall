@@ -12,9 +12,12 @@ public class BookreviewDao {
 		ResultSet rsSelectBookreview = null;
 		PreparedStatement pstmtSelectBookreview = null;
 		BookreviewList bookreviewList = null;
+		
+		//Dao클래스에 들어있는 클래스타의 변수를설정
 		Book book = null;
 		Member member = null;
 		Bookreview bookreview = null;
+		
 		ArrayList<BookreviewList> bookreviewDetail = new ArrayList<BookreviewList>();
 		
 		//댓글 리스트를 출력하기 위한 LEFT JOIN문 입니다.
@@ -31,7 +34,7 @@ public class BookreviewDao {
 				book.setBookName(rsSelectBookreview.getString("book_name"));
 				
 				member = new Member();
-				member.setMemberName(rsSelectBookreview.getString("member_name"));
+				member.setMemberId(rsSelectBookreview.getString("member_id"));
 				
 				bookreview = new Bookreview();
 				bookreview.setBookNo(rsSelectBookreview.getInt("book_no"));
@@ -107,11 +110,45 @@ public class BookreviewDao {
 					pstmtSelectBookreview.close();
 					
 				} catch(SQLException e) {
-					System.out.println("DB와 관련된 예외가 발생하였습니다, rsSelectBookreview close");
+					System.out.println("DB와 관련된 예외가 발생하였습니다, pstmtSelectBookreview close");
 					e.printStackTrace();
 					
 				}
 			}
 		}
 	}
+	
+	//DB에 저장되어 있는 값을 삭제 처리하는 메소드입니다.
+	public void deleteBookreview(Connection conn ,String bookreviewContent) {
+		
+		PreparedStatement pstmtdeleteBookreview = null;
+		
+		String deleteBookreview = "DELETE FROM bookreview WHERE bookreview_content = ?";
+		
+		try {
+			pstmtdeleteBookreview = conn.prepareStatement(deleteBookreview);
+			pstmtdeleteBookreview.setString(1, bookreviewContent);
+			
+			pstmtdeleteBookreview.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} finally {
+			if(pstmtdeleteBookreview != null) {
+				
+				try {
+					pstmtdeleteBookreview.close();
+					
+				} catch(SQLException e) {
+					System.out.println("DB와 관련된 예외가 발생하였습니다, pstmtdeleteBookreview close");
+					e.printStackTrace();
+					
+				}
+			}
+		}
+	}
+	
+	
 }

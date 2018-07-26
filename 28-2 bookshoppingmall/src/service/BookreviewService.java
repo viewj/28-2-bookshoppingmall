@@ -8,6 +8,7 @@ public class BookreviewService {
 	
 	//상세정보에서 bookNo값의 전체 댓글을 가져 오는 메소드입니다.
 	public ArrayList<BookreviewList> totalReview(int bookNo) {
+		System.out.println(bookNo +"<-bookNo BookreviewService.java");
 		
 		Connection conn = null;
 		
@@ -41,7 +42,6 @@ public class BookreviewService {
 		
 		Connection conn = null;
 		
-		
 		try {
 			
 			conn = DButil.connectDB();
@@ -53,13 +53,50 @@ public class BookreviewService {
 			e.printStackTrace();
 			
 		} finally {
+			
 			if(conn != null) {
+				
 				try {
 					conn.close();
+					
 				} catch (SQLException e) {
 					e.printStackTrace();
+					
 				}
 			}
 		}
 	}
+	
+	//댓글 삭제 처리하는 메소드
+	public void deleteBookreview(String bookreviewContent) {
+		
+		Connection conn = null;
+		
+		try {
+			
+			conn = DButil.connectDB();
+			
+			//댓글 처리 시작하는 메서드
+			BookreviewDao bookreviewDao = new BookreviewDao();
+			
+			bookreviewDao.deleteBookreview(conn ,bookreviewContent);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		} finally {
+			
+			if(conn != null) {
+				
+				try {
+					conn.close();
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+					
+				}
+			}
+		}
+	}
+	
 }
