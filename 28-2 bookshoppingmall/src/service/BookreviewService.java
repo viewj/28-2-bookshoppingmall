@@ -36,4 +36,30 @@ public class BookreviewService {
 		return bookreviewDetail;
 	}
 
+	//화면에서 입력한값을 DB에 저장하는 메서드입니다.
+	public void insertBookreview(Bookreview bookreview) {
+		
+		Connection conn = null;
+		
+		
+		try {
+			
+			conn = DButil.connectDB();
+			BookreviewDao bookreviewDao = new BookreviewDao();
+			
+			bookreviewDao.insertBookreview(conn ,bookreview);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }

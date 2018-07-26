@@ -14,8 +14,10 @@
 			Integer sessionMemberNo = (Integer)session.getAttribute("sessionMemberNo");
 			String sessionMemberId = (String)session.getAttribute("sessionMemberId");
 		
+			//리스트에서 보내온 값을 받는 코드
 			int bookNo = Integer.parseInt(request.getParameter("bookNo"));
 			
+			//화면에서 보여줄 값을 가져오기
 			BookService bookService = new BookService();
 			
 			BookDetail bookDetail = bookService.selectBookDatail(bookNo);
@@ -31,6 +33,7 @@
 							<td><input type="hidden" name="bookName" value="<%=bookDetail.getBookName()%>"></td>
 						</tr>
 					</thead>
+					<!-- 책의 상세정보 테이블 -->
 					<tbody>
 						<tr>
 							<td><input type="hidden" name="bookNo" value="<%=bookDetail.getBookNo()%>">작가 :<%=bookDetail.getBookAuthor()%></td>
@@ -59,7 +62,7 @@
 						</tr>
 					</tbody>
 				</table><br>
-				
+				<!-- 책소개 테이블 -->
 				<table>
 					<thead>
 						<tr>
@@ -81,6 +84,10 @@
 				<a href="*">구매</a>
 				<input type="submit" value="장바구니에 담기">
 			</form>
+			
+			<jsp:include page="../../bookreview/insertBookreviewForm.jsp">
+				<jsp:param value="<%=bookDetail.getBookNo()%>" name="bookNo"/>
+			</jsp:include>
 		</div>
 	</body>
 </html>

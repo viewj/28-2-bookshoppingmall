@@ -79,4 +79,39 @@ public class BookreviewDao {
 		return bookreviewDetail;
 	}
 	
+	//DB에 입력한 댓글을 저장하는 메서드입니다.
+	public void insertBookreview(Connection conn ,Bookreview bookrivew) {
+		
+		PreparedStatement pstmtSelectBookreview = null;
+		
+		//insertQuery
+		String insertQuery = "INSERT INTO bookreview(book_no ,member_no ,bookreview_content) VALUES(? ,? ,?)";
+		
+		try {
+			pstmtSelectBookreview = conn.prepareStatement(insertQuery);
+			pstmtSelectBookreview.setInt(1, bookrivew.getBookNo());
+			pstmtSelectBookreview.setInt(2, bookrivew.getMemberNo());
+			pstmtSelectBookreview.setString(3, bookrivew.getBookreviewContent());
+			
+			pstmtSelectBookreview.executeUpdate();
+					
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} finally {
+			if(pstmtSelectBookreview != null) {
+				
+				try {
+					pstmtSelectBookreview.close();
+					
+				} catch(SQLException e) {
+					System.out.println("DB와 관련된 예외가 발생하였습니다, rsSelectBookreview close");
+					e.printStackTrace();
+					
+				}
+			}
+		}
+	}
 }
