@@ -124,7 +124,7 @@ public class QnaDao {
 	}
 	
 	// qna테이블의 한 행을 삭제하는 메소드
-	public void deleteQna(Connection conn, Qna qna) {
+	public void deleteQna(Connection conn, int qnaNo) {
 		// 객체참조변수 선언
 		PreparedStatement pstmtDeleteQna = null;
 		String sqlDeleteQna = "DELETE FROM qna WHERE qna_no=?";
@@ -132,7 +132,7 @@ public class QnaDao {
 		try {
 			pstmtDeleteQna = conn.prepareStatement(sqlDeleteQna);
 			// 쿼리문의 ?자리에 해당하는 값을 넣어준다.
-			pstmtDeleteQna.setInt(1, qna.getQna_no());
+			pstmtDeleteQna.setInt(1, qnaNo);
 			
 			// 쿼리문이 제대로 실행되면 1, 아니면 0을 리턴하고 변수에 담는다.
 			int resultDelete = pstmtDeleteQna.executeUpdate();

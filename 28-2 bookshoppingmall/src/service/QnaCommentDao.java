@@ -127,7 +127,7 @@ public class QnaCommentDao {
 		ArrayList<QnaComment> qnaCommentList = new ArrayList<QnaComment>();
 		QnaComment qnaComment = null;
 		
-		String sqlSelectUserQnaList = "SELECT qna_no, admin_no, qna_comment_content, qna_comment_date FROM qna_comment where qna_no=? ORDER BY qnacomment_no DESC";
+		String sqlSelectUserQnaList = "SELECT qna_no, admin_no, qna_comment_content, qna_comment_date FROM qna_comment where qna_no=? ORDER BY qna_comment_no DESC";
 		
 		try {
 			pstmtSelectQnaCommentList = conn.prepareStatement(sqlSelectUserQnaList);
@@ -141,7 +141,7 @@ public class QnaCommentDao {
 				qnaComment.setQnaNo(rsSelectQnaCommentList.getInt("qna_no"));
 				qnaComment.setAdminNo(rsSelectQnaCommentList.getInt("admin_no"));
 				qnaComment.setQnaCommentContent(rsSelectQnaCommentList.getString("qna_comment_content"));
-				qnaComment.setQnaCommentDate(rsSelectQnaCommentList.getString("qna_date"));
+				qnaComment.setQnaCommentDate(rsSelectQnaCommentList.getString("qna_comment_date"));
 				qnaCommentList.add(qnaComment);
 			}
 			

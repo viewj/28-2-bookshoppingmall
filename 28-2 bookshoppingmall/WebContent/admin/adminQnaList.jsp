@@ -12,6 +12,8 @@
 			System.out.println("");
 			System.out.println("location : user/AdminQnaList.jsp");
 			
+			request.setCharacterEncoding("UTF-8");
+			
 			// 세션 정보 받아오기
 			Integer sessionAdminNo = (Integer)session.getAttribute("sessionAdminNo");
 			String sessionAdminId = (String)session.getAttribute("sessionAdminId");

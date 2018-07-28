@@ -117,7 +117,7 @@ public boolean addQna(Qna qna) {
 		
 	}
 	
-	public void deleteQna(Qna qna) {
+	public void deleteQna(int qnaNo) {
 		
 		Connection conn = null;
 		
@@ -126,7 +126,7 @@ public boolean addQna(Qna qna) {
 			
 			QnaDao qnaDao = new QnaDao();
 			
-			qnaDao.deleteQna(conn, qna);
+			qnaDao.deleteQna(conn, qnaNo);
 			conn.commit();
 			
 		} catch (SQLException e) {
