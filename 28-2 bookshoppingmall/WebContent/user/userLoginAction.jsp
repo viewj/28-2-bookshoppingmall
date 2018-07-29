@@ -23,6 +23,7 @@
 			// userLogin으로 부터 넘겨받은 파라미터를 각각의 변수에 대입
 			String memberId = request.getParameter("memberId");
 			String memberPw = request.getParameter("memberPw");
+			int bookNo = Integer.parseInt(request.getParameter("bookNo"));
 			
 			// 값 테스트 
 			System.out.println("memberId & memberPw : " + memberId + " & " + memberPw);
@@ -46,7 +47,12 @@
 				String name = (String)session.getAttribute("sessionMemberName");
 				System.out.println(name +"<=user name");
 				
-				response.sendRedirect(request.getContextPath() + "/user/index.jsp");
+				if(bookNo != 0) {
+					response.sendRedirect(request.getContextPath() + "/user/book/listBookDetail.jsp?bookNo="+bookNo);
+				}else {
+					response.sendRedirect(request.getContextPath() + "/user/index.jsp");
+				}
+				
 			} else if(resultOfLogin.equals("비밀번호불일치")) {
 				System.out.println("비밀번호가 일치하지 않습니다.");
 				response.sendRedirect(request.getContextPath() + "/user/userLoginForm.jsp");

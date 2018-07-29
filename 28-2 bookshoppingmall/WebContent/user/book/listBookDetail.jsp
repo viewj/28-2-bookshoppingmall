@@ -46,7 +46,7 @@
 					<!-- 책의 상세정보 테이블 -->
 					<tbody>
 						<tr>
-							<td><input type="hidden" name="bookNo" value="<%=bookDetail.getBookNo()%>">작가 :<%=bookDetail.getBookAuthor()%></td>
+							<td>작가 :<%=bookDetail.getBookAuthor()%><input type="hidden" name="bookNo" value="<%=bookDetail.getBookNo()%>"></td>
 						</tr>
 						<tr>
 							<td>출판사 :<%=bookDetail.getPublisherName()%></td>
@@ -55,16 +55,16 @@
 							<td>장르 :<%=bookDetail.getBookcodeName()%></td>
 						</tr>
 						<tr>
-							<td><input type="hidden" name="bookPrice" value="<%=bookDetail.getBookPrice()%>">가격 :<%=bookDetail.getBookPrice()%></td>
+							<td>가격 :&nbsp;&nbsp;<%=bookDetail.getBookPrice()%>&nbsp;원<input type="hidden" name="bookPrice" value="<%=bookDetail.getBookPrice()%>"></td>
 						</tr>
 						<tr>
-							<td><input type="hidden" name="BookPoint" value="<%=bookDetail.getBookPoint()%>">마일리지 :<%=bookDetail.getBookPoint()%></td>
+							<td>&nbsp;&nbsp;마일리지 :<%=bookDetail.getBookPoint()%>&nbsp;원<input type="hidden" name="BookPoint" value="<%=bookDetail.getBookPoint()%>"></td>
 						</tr>
 						<tr>
-							<td>현재 수량 :<%=bookDetail.getBookAmount()%></td>
+							<td>현재 수량 :&nbsp;&nbsp;<%=bookDetail.getBookAmount()%>&nbsp;권</td>
 						</tr>
 						<tr>
-							<td>구매 수량 :<input type="number" name="BookAmount" max="<%=bookDetail.getBookAmount()%>" min="0" value="1"><input type="hidden" name="maxAmount" value="<%=bookDetail.getBookAmount()%>"></td>
+							<td>구매 수량 :&nbsp;&nbsp;<input type="number" name="BookAmount" max="<%=bookDetail.getBookAmount()%>" min="0" value="1">&nbsp;권<input type="hidden" name="maxAmount" value="<%=bookDetail.getBookAmount()%>"></td>
 					
 						</tr>
 						<tr>
@@ -92,7 +92,20 @@
 				</table><br>
 				
 				<a href="*">구매</a>
-				<input type="submit" value="장바구니에 담기">
+				
+				<!-- 장바구니 버튼 -->
+				<%
+					if(sessionMemberId == null) {
+				%>
+						<a href="../userLoginForm.jsp?bookNo=<%=bookNo%>">장바구니에 담기</a>
+				<%
+					}else {
+				%>
+						<input type="submit" value="장바구니에 담기">
+				<%		
+					}
+				%>
+				
 			</form>
 		</div>
 		
@@ -105,7 +118,7 @@
 				<%
 					if(sessionMemberId == null) {
 				%>
-						<a href="./../bookreview/bookreviewLoginForm.jsp?bookNo=<%=bookNo%>">등록</a>
+						<a href="../userLoginForm.jsp?bookNo=<%=bookNo%>">등록</a>
 				<%		
 					}else {
 				%>

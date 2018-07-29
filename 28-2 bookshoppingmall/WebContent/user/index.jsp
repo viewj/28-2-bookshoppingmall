@@ -7,6 +7,7 @@
 		<title>Index</title>
 	</head>
 	<body>
+	
 		<%
 			System.out.println("");
 			System.out.println("location : user/index.jsp");
