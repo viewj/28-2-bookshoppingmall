@@ -8,45 +8,7 @@
 		<title>장바구니 리스트</title>
 		
 	</head>
-	<body onload="init();">
-	<script language="JavaScript">
-			var sell_price;
-			var totalAmount;
-			
-			function init () {
-				sell_price = document.form.sell_price.value;
-				totalAmount = document.form.totalAmount.value;
-				document.form.totalPrice.value = sell_price;
-				change();
-			}
-			
-			function add () {
-				hm = document.form.totalAmount;
-				totalPrice = document.form.totalPrice;
-				hm.value ++ ;
-			
-				totalPrice.value = parseInt(hm.value) * sell_price;
-			}
-			
-			function del () {
-				hm = document.form.totalAmount;
-				totalPrice = document.form.totalPrice;
-					if (hm.value > 1) {
-						hm.value -- ;
-						totalPrice.value = parseInt(hm.value) * sell_price;
-					}
-			}
-			
-			function change () {
-				hm = document.form.totalAmount;
-				totalPrice = document.form.totalPrice;
-			
-					if (hm.value < 0) {
-						hm.value = 0;
-					}
-					totalPrice.value = parseInt(hm.value) * sell_price;
-			}  
-	</script>
+	<body>
 	<%
 		Integer sessionMemberNo = (Integer)session.getAttribute("sessionMemberNo");
 		String sessionMemberId = (String)session.getAttribute("sessionMemberId");
@@ -66,7 +28,6 @@
 						<th>도서명</th>
 						<th>판매가</th>
 						<th>수량</th>
-						<th>합계</th>
 						<th>적립 마일리지</th>
 						<th>장바구니에 담은 날짜</th>
 						<th>바로 주문</th>
@@ -83,11 +44,9 @@
 						<tr>
 							<td><input type="hidden" name="bookName" value="<%=purchaseList.getBookName()%>"><a href="./../book/listBookDetail.jsp?bookNo=<%=purchaseList.getMemberNo()%>"><%=purchaseList.getBookName()%></a></td>
 							<td><input type="hidden" name="bookNo" value="<%=purchaseList.getBookNo()%>"><%=purchaseList.getShoppingcartPrice()%>원</td>
-							<td>수량 :<input type=hidden name="sell_price" value="<%=purchaseList.getShoppingcartPrice()%>">
-									<input type="text" name="totalAmount" value="<%=purchaseList.getShoppingcartAmount() %>" size="3" onchange="change();">
-									<input type="button" value=" + " onclick="add();"><input type="button" value=" - " onclick="del();"><br>
+							<td>
+								수량 : <input type="text" name="totalAmount" value="<%=purchaseList.getShoppingcartAmount() %>" size="3">
 							</td>
-							<td><input type="text" name="totalPrice" size="11" readonly>원</td>
 							<td><input type="hidden" name="totalPoint" value="<%=purchaseList.getBookPoint() * purchaseList.getShoppingcartAmount()%>"><%=purchaseList.getBookPoint() * purchaseList.getShoppingcartAmount()%>원</td>
 							<td><%=purchaseList.getShoppingcartDate()%></td>
 							<td><input type="hidden" name="shoppingNo" value="<%=purchaseList.getShoppingcartNo()%>"><input type="submit" value="주문하기"></td>

@@ -8,8 +8,9 @@
 	<body>
 		<%
 			int bookNo = 0;
-			
-			bookNo = Integer.parseInt(request.getParameter("bookNo"));
+			if(request.getParameter("bookNo") != null){
+				bookNo = Integer.parseInt(request.getParameter("bookNo"));
+			}
 			
 		%>
 		<h1>일반회원 로그인</h1>

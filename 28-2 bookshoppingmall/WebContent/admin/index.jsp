@@ -23,8 +23,7 @@
 			<%
 				if(sessionAdminId == null){
 			%>
-					<a href="<%= request.getContextPath() %>/admin/adminLoginForm.jsp">Sign in</a> | <a href="<%= request.getContextPath() %>/admin/adminSignUpForm.jsp">Sign Up</a> | Cart | My page
-					</div>
+					<a href="<%= request.getContextPath() %>/admin/adminLoginForm.jsp">Sign in</a> | <a href="<%= request.getContextPath() %>/admin/adminSignUpForm.jsp">Sign Up</a> | Cart | My page	
 					<br><br>
 					<div id="mainTitle" align="center">
 						<h1>The Lives of Others</h1>
@@ -43,7 +42,7 @@
 			<%
 				} else {
 			%>
-					Hello! <%= sessionAdminId %>  | <a href="<%= request.getContextPath() %>/admin/adminLogout.jsp">Sign out</a> | Cart | My page
+					안녕! <%= sessionAdminId %> | <a href="<%= request.getContextPath() %>/admin/adminLogout.jsp">로그아웃</a> | 장바구니 | 내정보
 					</div>
 					<br><br>
 					<div id="mainTitle" align="center">

@@ -146,11 +146,13 @@
 									
 									<!-- ID값이 일치 할 시 수정 삭제 버튼 생성 -->
 									<%
-										if(sessionMemberId.equals(bookreviewList.getMember().getMemberId())) {
+										if(sessionMemberId != null){
+											if(sessionMemberId.equals(bookreviewList.getMember().getMemberId())) {
 									%>
-											<td><input type="submit" value="수정"></td>
-											<td><a href="../bookreview/deleteBookreviewAction.jsp?bookreviewContent=<%=bookreviewList.getBookreview().getBookreviewContent()%>&bookNo=<%=bookNo%>">삭제</a></td>
+												<td><input type="submit" value="수정"></td>
+												<td><a href="../bookreview/deleteBookreviewAction.jsp?bookreviewContent=<%=bookreviewList.getBookreview().getBookreviewContent()%>&bookNo=<%=bookNo%>">삭제</a></td>
 									<%
+											}
 										}
 									%>
 								</tr>
