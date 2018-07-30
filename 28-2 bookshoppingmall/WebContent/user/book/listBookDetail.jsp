@@ -144,12 +144,12 @@
 								<tr>
 									<td><input type="hidden" name="bookreviewContent" value="<%=bookreviewList.getBookreview().getBookreviewContent()%>"><%=bookreviewList.getBookreview().getBookreviewContent()%></td>
 									
-									
+									<!-- ID값이 일치 할 시 수정 삭제 버튼 생성 -->
 									<%
-										if(sessionMemberId == bookreviewList.getMember().getMemberId()) {
+										if(sessionMemberId.equals(bookreviewList.getMember().getMemberId())) {
 									%>
 											<td><input type="submit" value="수정"></td>
-											<td><a href="deleteBookreviewAction.jsp?bookreviewContent=<%=bookreviewList.getBookreview().getBookreviewContent()%>&bookNo=<%=bookNo%>">삭제</a></td>
+											<td><a href="../bookreview/deleteBookreviewAction.jsp?bookreviewContent=<%=bookreviewList.getBookreview().getBookreviewContent()%>&bookNo=<%=bookNo%>">삭제</a></td>
 									<%
 										}
 									%>
